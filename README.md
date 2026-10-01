@@ -3,6 +3,14 @@
 Statyczna strona (HTML + CSS + jeden plik JS, bez frameworków). Mobile-first, ciemny motyw,
 akcent limonkowy. Newsletter zapisuje e-maile do bazy Supabase. Sprzedaż przez zewnętrzny sklep Payhip.
 
+- **Live:** https://marzenia42-png.github.io/buduj-z-ai/
+- **Repo:** https://github.com/marzenia42-png/buduj-z-ai
+- Każdy `git push` do gałęzi `main` automatycznie odświeża stronę na GitHub Pages (~1 min).
+
+> **Elementy niegotowe są ukryte na live** (patrz sekcja „Flaga WIP"). Odsłaniają się
+> dopiero po uzupełnieniu treści. Adresy `canonical`/OG wskazują na GitHub Pages —
+> po wpięciu własnej domeny trzeba je podmienić (lista miejsc na końcu).
+
 ## Jak uruchomić lokalnie
 
 Treść (nowości, ebooki, projekty) ładuje się z plików JSON przez `fetch`, więc **nie wystarczy
@@ -94,9 +102,12 @@ Pierwszy projekt na liście dostaje makietę telefonu (pod HABLA); kolejne — o
 
 ## Newsletter / baza danych (Supabase)
 
+> **WAŻNE:** newsletter musi mieć **własny, osobny projekt Supabase** dla tej strony.
+> **Nie używać** projektu SOLA (`txqjj…`) ani żadnego innego istniejącego — zakładamy nowy.
+
 E-maile zapisują się do tabeli w Supabase przez REST API. Dopóki w `js/config.js` są wartości
-w `[NAWIASACH]`, formularz działa i waliduje dane, ale zamiast zapisu pokazuje komunikat
-„zapisy nie są jeszcze podłączone”.
+w `[NAWIASACH]`, **formularz jest ukryty**, a w sekcji newslettera pokazuje się komunikat
+**„Zapisy ruszają wkrótce”**. Po wklejeniu kluczy formularz pojawia się automatycznie.
 
 ### Krok 1 — utwórz tabelę
 
@@ -132,21 +143,45 @@ strona pokaże „już zapisany”).
 
 ---
 
+## Flaga WIP — ukrywanie niegotowych elementów
+
+Elementy z `[NAWIASAMI]` (zdjęcie w „O mnie", dalszy fragment ebooka, opinie, linki do social,
+pytania FAQ o płatności/zwroty) są **ukryte na live**. Mechanizm:
+
+- W kodzie są oznaczone atrybutem `data-wip`, a CSS je chowa (`[data-wip]{display:none}`).
+- Linki-placeholdery (href zaczynający się od `[`) chowane są automatycznie przez JS.
+
+Jak odsłonić:
+- **Podgląd wszystkiego:** dopisz `?wip=1` do adresu (np. `…/buduj-z-ai/?wip=1`) **lub** ustaw
+  `POKAZ_WIP: true` w `js/config.js`.
+- **Na stałe (gdy element gotowy):** uzupełnij jego treść i **usuń atrybut `data-wip`** z tego
+  elementu w HTML (przy linkach social — wpisz prawdziwy adres zamiast `[LINK_…]`).
+
 ## Grafika do social (OG)
 
-Plik `og-image.svg` to źródło. Facebook/LinkedIn nie czytają SVG, więc wyeksportuj go do
-**`og-image.png` 1200×630 px** (np. otwierając SVG w przeglądarce i robiąc zrzut, albo w dowolnym edytorze)
-i wgraj obok plików strony. Odwołania w `<head>` już wskazują na `og-image.png`.
+`og-image.png` (1200×630) jest już wygenerowany z `og-image.svg`. Jeśli zmienisz treść/grafikę,
+odśwież PNG (otwórz SVG w przeglądarce i zrób zrzut 1200×630, albo w dowolnym edytorze). Odwołania
+w `<head>` wskazują na `og-image.png`.
+
+## Na później (TODO — nie zrobione jeszcze)
+
+- **Prerender nowości i ebooków do HTML przy buildzie (SEO).** Teraz nowości/ebooki/projekty
+  wstrzykuje JavaScript z `data/*.json` — Google może nie widzieć tej treści. Docelowo: prosty
+  skrypt budujący (np. Node/GitHub Actions), który przy każdym `push` wczytuje `data/*.json`
+  i **wkleja gotowy HTML** kart do stron (lub generuje statyczne podstrony). Wtedy treść jest
+  w źródle strony, a nie dociągana skryptem. Do rozważenia: GitHub Actions workflow + szablony.
 
 ---
 
 ## LISTA WSZYSTKICH [NAWIASÓW] DO UZUPEŁNIENIA
 
-### Globalne (powtarzają się na wielu stronach)
-- `[ADRES_STRONY_DO_UZUPEŁNIENIA]` — pełny adres strony, np. `https://budujzai.pl`.
-  Występuje w: `index.html`, `nowosci.html` (canonical, OG), `sitemap.xml`, `robots.txt`, `js/config.js`.
-- `[LINK_INSTAGRAM]`, `[LINK_TIKTOK]`, `[LINK_YOUTUBE]` — linki do social (stopka wszystkich stron + dane strukturalne).
-- `og-image.png` — grafika social do wyeksportowania (patrz wyżej).
+### Globalne
+- **Adres strony** — ustawiony tymczasowo na `https://marzenia42-png.github.io/buduj-z-ai`.
+  Po wpięciu własnej domeny podmień w: `index.html`, `nowosci.html` (canonical, OG),
+  `sitemap.xml`, `robots.txt`, `js/config.js` (`SITE_URL`).
+- `[LINK_INSTAGRAM]`, `[LINK_TIKTOK]`, `[LINK_YOUTUBE]` — linki do social (stopka wszystkich stron +
+  dane strukturalne). **Ukryte na live**, dopóki placeholder; wpisanie prawdziwego adresu je pokazuje.
+- `og-image.png` — gotowy (1200×630). Odśwież tylko jeśli zmienisz grafikę.
 
 ### Konfiguracja (`js/config.js`)
 - `[SUPABASE_URL_DO_UZUPEŁNIENIA]`

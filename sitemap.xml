@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Zamień [ADRES_STRONY_DO_UZUPEŁNIENIA] na pełny adres, np. https://budujzai.pl -->
+<!-- Adres tymczasowy (GitHub Pages). Po wpięciu własnej domeny podmień na np. https://budujzai.pl -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>[ADRES_STRONY_DO_UZUPEŁNIENIA]/</loc>
+    <loc>https://marzenia42-png.github.io/buduj-z-ai/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>[ADRES_STRONY_DO_UZUPEŁNIENIA]/nowosci.html</loc>
+    <loc>https://marzenia42-png.github.io/buduj-z-ai/nowosci.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>[ADRES_STRONY_DO_UZUPEŁNIENIA]/regulamin.html</loc>
+    <loc>https://marzenia42-png.github.io/buduj-z-ai/regulamin.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>[ADRES_STRONY_DO_UZUPEŁNIENIA]/polityka-prywatnosci.html</loc>
+    <loc>https://marzenia42-png.github.io/buduj-z-ai/polityka-prywatnosci.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

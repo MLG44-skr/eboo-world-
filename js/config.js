@@ -2,16 +2,22 @@
 // -----------------------------------------------------------------------------
 // Tu podajesz dane do zapisu newslettera w bazie Supabase.
 // Jak zdobyć te wartości — patrz README.md sekcja "Newsletter / baza danych".
-// Dopóki poniżej są wartości w [NAWIASACH], formularz działa, ale zamiast zapisu
-// do bazy pokaże komunikat, że zapisy nie są jeszcze skonfigurowane.
+//
+// WAŻNE: newsletter MUSI mieć WŁASNY, OSOBNY projekt Supabase dla Marcela.
+//        NIE używać projektu SOLA (txqjj...) ani żadnego innego istniejącego.
+//        Dopóki poniżej są wartości w [NAWIASACH], formularz jest ukryty, a w
+//        sekcji newslettera pokazuje się komunikat "Zapisy ruszają wkrótce".
 // -----------------------------------------------------------------------------
 window.BUDUJ_CONFIG = {
-  // Adres projektu Supabase, np. "https://abcd1234.supabase.co"
+  // Adres NOWEGO projektu Supabase Marcela, np. "https://abcd1234.supabase.co"
   SUPABASE_URL: "[SUPABASE_URL_DO_UZUPEŁNIENIA]",
-  // Klucz publiczny "anon" z Supabase (NIE service_role!)
+  // Klucz publiczny "anon" z tego projektu (NIE service_role!)
   SUPABASE_ANON_KEY: "[SUPABASE_ANON_KEY_DO_UZUPEŁNIENIA]",
   // Nazwa tabeli na zapisy (domyślnie "subscribers")
   SUBSCRIBERS_TABLE: "subscribers",
-  // Pełny adres strony (do linków, OG, sitemap). Np. "https://budujzai.pl"
-  SITE_URL: "[ADRES_STRONY_DO_UZUPEŁNIENIA]"
+  // Pełny adres strony (do linków). Na razie GitHub Pages; później własna domena.
+  SITE_URL: "https://marzenia42-png.github.io/buduj-z-ai",
+  // Pokaż na stronie elementy jeszcze niegotowe (z [NAWIASAMI])?
+  // false = ukryte na live. true (lub ?wip=1 w adresie) = podgląd wszystkiego.
+  POKAZ_WIP: false
 };

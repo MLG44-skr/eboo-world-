@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: [ADRES_STRONY_DO_UZUPEŁNIENIA]/sitemap.xml
+Sitemap: https://marzenia42-png.github.io/buduj-z-ai/sitemap.xml

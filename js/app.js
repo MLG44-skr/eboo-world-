@@ -5,6 +5,12 @@
   "use strict";
 
   var AUTOR = "marcel barut"; // na okładkach zawsze małymi literami
+  var WIP_POKAZ = false;      // tryb podglądu niegotowych treści (?wip=1 / POKAZ_WIP)
+
+  // Czy wartość to placeholder "[...DO UZUPEŁNIENIA]"?
+  function isPH(v) { return typeof v === "string" && v.trim().charAt(0) === "["; }
+  // Zwróć pusty string zamiast placeholdera (chyba że tryb podglądu).
+  function clean(v) { return (!WIP_POKAZ && isPH(v)) ? "" : v; }
 
   /* ---------- Pomocnicze ---------- */
   function h(str) {
@@ -44,20 +50,22 @@
 
   /* ---------- Nowości AI ---------- */
   function newsCardHTML(n) {
-    var link = n.link_zrodla && n.link_zrodla.indexOf("[") !== 0
+    var link = n.link_zrodla && !isPH(n.link_zrodla)
       ? '<a class="news__link" href="' + h(n.link_zrodla) + '" target="_blank" rel="noopener">Źródło →</a>'
-      : '<span class="news__link" style="color:var(--tekst-2)">[LINK DO ŹRÓDŁA]</span>';
+      : (WIP_POKAZ ? '<span class="news__link" style="color:var(--tekst-2)">[LINK DO ŹRÓDŁA]</span>' : "");
     return (
       '<article class="karta news">' +
-        '<div class="news__data">' + h(n.data) + "</div>" +
-        '<h3 class="news__tytul">' + h(n.tytul) + "</h3>" +
-        "<p>" + h(n.opis) + "</p>" +
+        '<div class="news__data">' + h(clean(n.data)) + "</div>" +
+        '<h3 class="news__tytul">' + h(clean(n.tytul)) + "</h3>" +
+        "<p>" + h(clean(n.opis)) + "</p>" +
         link +
       "</article>"
     );
   }
 
   function renderNews(news) {
+    // Na live pomijamy wpisy-placeholdery (bez uzupełnionego tytułu).
+    if (!WIP_POKAZ) news = news.filter(function (n) { return !isPH(n.tytul); });
     var aktualne = qs("#news-aktualne");
     if (aktualne) {
       aktualne.innerHTML = news.slice(0, 3).map(newsCardHTML).join("");
@@ -85,29 +93,37 @@
   /* ---------- Ebooki ---------- */
   function ebookCardHTML(e) {
     var wkrotce = e.status === "wkrotce";
-    var cena = e.cena && e.cena.indexOf("[") !== 0 ? h(e.cena) : "[CENA]";
-    var punkty = (e.punkty || []).map(function (p) { return "<li>" + h(p) + "</li>"; }).join("");
+    var cenaGotowa = e.cena && !isPH(e.cena);
+    var punkty = (e.punkty || []).filter(function (p) { return WIP_POKAZ || !isPH(p); })
+      .map(function (p) { return "<li>" + h(p) + "</li>"; }).join("");
     var badge = wkrotce ? '<span class="badge badge--wkrotce">Wkrótce</span>' : '<span class="badge">Dostępny</span>';
 
     var cta;
     if (wkrotce) {
       cta = '<a class="btn btn--obrys btn--maly" href="#newsletter">Daj znać, gdy wyjdzie</a>';
-    } else if (e.link_payhip && e.link_payhip.indexOf("[") !== 0) {
+    } else if (e.link_payhip && !isPH(e.link_payhip)) {
       cta = '<a class="btn btn--akcent btn--maly" href="' + h(e.link_payhip) + '" target="_blank" rel="noopener">Kup</a>';
-    } else {
+    } else if (WIP_POKAZ) {
       cta = '<a class="btn btn--akcent btn--maly" href="#" aria-disabled="true" title="Uzupełnij link Payhip">Kup</a>';
+    } else {
+      // Brak linku Payhip na live — kieruj do newslettera zamiast martwego przycisku.
+      cta = '<a class="btn btn--obrys btn--maly" href="#newsletter">Powiadom mnie</a>';
     }
+
+    // Cenę pokazujemy tylko gdy gotowa (lub w podglądzie).
+    var cenaHTML = (!wkrotce && (cenaGotowa || WIP_POKAZ))
+      ? '<span class="ebook__cena">' + h(cenaGotowa ? e.cena : "[CENA]") + "</span>" : "";
 
     return (
       '<article class="karta ebook">' +
         '<div class="ebook__cover">' + coverHTML(e) + "</div>" +
         '<div class="ebook__tresc">' +
           badge +
-          '<h3 class="ebook__tytul">' + h(e.tytul) + "</h3>" +
-          "<p>" + h(e.opis) + "</p>" +
+          '<h3 class="ebook__tytul">' + h(clean(e.tytul)) + "</h3>" +
+          "<p>" + h(clean(e.opis)) + "</p>" +
           '<ul class="ebook__punkty">' + punkty + "</ul>" +
           '<div class="ebook__stopka">' +
-            (wkrotce ? "" : '<span class="ebook__cena">' + cena + "</span>") +
+            cenaHTML +
             cta +
           "</div>" +
         "</div>" +
@@ -122,8 +138,9 @@
 
   /* ---------- Projekty / aplikacje ---------- */
   function projektCardHTML(p, i) {
-    var tagi = (p.tagi || []).map(function (t) { return '<span class="badge">' + h(t) + "</span>"; }).join("");
-    var link = p.link && p.link.indexOf("[") !== 0
+    var tagi = (p.tagi || []).filter(function (t) { return WIP_POKAZ || !isPH(t); })
+      .map(function (t) { return '<span class="badge">' + h(t) + "</span>"; }).join("");
+    var link = p.link && !isPH(p.link)
       ? '<a class="btn btn--akcent btn--maly" href="' + h(p.link) + '" target="_blank" rel="noopener">' + h(p.link_label || "Zobacz") + "</a>"
       : '<span class="btn btn--obrys btn--maly btn--wylaczony">' + h(p.link_label || "Wkrótce") + "</span>";
 
@@ -137,9 +154,9 @@
         media +
         "<div>" +
           '<span class="nadtytul">' + h(p.typ) + "</span>" +
-          '<h3 class="projekt__tytul">' + h(p.tytul) + "</h3>" +
+          '<h3 class="projekt__tytul">' + h(clean(p.tytul)) + "</h3>" +
           '<div class="projekt__meta">' + tagi + "</div>" +
-          "<p>" + h(p.opis) + "</p>" +
+          "<p>" + h(clean(p.opis)) + "</p>" +
           '<div class="projekt__akcje">' + link + "</div>" +
         "</div>" +
       "</article>"
@@ -166,6 +183,8 @@
   }
 
   function renderProjekty(projekty) {
+    // Na live pomijamy projekty-placeholdery (bez uzupełnionego tytułu).
+    if (!WIP_POKAZ) projekty = projekty.filter(function (p) { return !isPH(p.tytul); });
     var box = qs("#projekty-lista");
     if (box) box.innerHTML = projekty.map(projektCardHTML).join("");
   }
@@ -176,6 +195,21 @@
   function initNewsletter() {
     var form = qs("#newsletter-form");
     if (!form) return;
+
+    var cfg = window.BUDUJ_CONFIG || {};
+    var skonfig = cfg.SUPABASE_URL && cfg.SUPABASE_URL.indexOf("[") !== 0 &&
+                  cfg.SUPABASE_ANON_KEY && cfg.SUPABASE_ANON_KEY.indexOf("[") !== 0;
+
+    // Dopóki brak własnego projektu Supabase — chowamy formularz, pokazujemy komunikat.
+    if (!skonfig) {
+      form.style.display = "none";
+      var info = document.createElement("p");
+      info.className = "newsletter__wkrotce";
+      info.textContent = "Zapisy ruszają wkrótce — wróć niebawem.";
+      form.parentNode.insertBefore(info, form);
+      return;
+    }
+
     var email = qs("#nl-email", form);
     var zgoda = qs("#nl-zgoda", form);
     var komunikat = qs("#nl-komunikat", form);
@@ -250,6 +284,27 @@
     });
   }
 
+  /* ---------- Ukrywanie elementów niegotowych (WIP / [NAWIASY]) ---------- */
+  function initWip() {
+    // Linki-placeholdery (href zaczyna się od "[") — chowamy całą pozycję listy.
+    var ph = document.querySelectorAll('a[href^="["]');
+    Array.prototype.forEach.call(ph, function (a) {
+      var li = a.closest ? a.closest("li") : null;
+      (li || a).setAttribute("data-wip", "");
+    });
+
+    var cfg = window.BUDUJ_CONFIG || {};
+    var pokaz = cfg.POKAZ_WIP === true ||
+                new URLSearchParams(location.search).get("wip") === "1";
+    WIP_POKAZ = pokaz;
+    if (pokaz) {
+      // Tryb podglądu — odsłaniamy wszystko oznaczone jako niegotowe.
+      Array.prototype.forEach.call(document.querySelectorAll("[data-wip]"), function (el) {
+        el.removeAttribute("data-wip");
+      });
+    }
+  }
+
   /* ---------- Przełącznik stylów ---------- */
   function initSwitch() {
     var box = qs(".styl-switch");
@@ -281,6 +336,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     initNav();
     initSwitch();
+    initWip();
     initRok();
     initNewsletter();
 
