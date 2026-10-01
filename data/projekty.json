@@ -1,0 +1,20 @@
+[
+  {
+    "typ": "Aplikacja",
+    "tytul": "HABLA — nauka hiszpańskiego",
+    "opis": "Aplikacja do nauki hiszpańskiego w stylu Duolingo: postać Laura, punkty XP i serie dni, które nie dają odpuścić. Zbudowana z AI od pierwszej linijki.",
+    "tagi": ["Nauka", "Języki", "Mobile"],
+    "status": "dostepny",
+    "link": "[LINK DO HABLA DO UZUPEŁNIENIA]",
+    "link_label": "Zobacz HABLA"
+  },
+  {
+    "typ": "Projekt",
+    "tytul": "[KOLEJNY PROJEKT DO UZUPEŁNIENIA]",
+    "opis": "[Krótki opis kolejnej rzeczy, którą zbudowałeś z AI — aplikacja, narzędzie, bot, strona. DO UZUPEŁNIENIA]",
+    "tagi": ["[TAG]", "[TAG]"],
+    "status": "wkrotce",
+    "link": "[LINK DO UZUPEŁNIENIA]",
+    "link_label": "Wkrótce"
+  }
+]

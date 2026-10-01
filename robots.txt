@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: [ADRES_STRONY_DO_UZUPEŁNIENIA]/sitemap.xml

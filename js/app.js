@@ -1,0 +1,300 @@
+/* =========================================================================
+   BUDUJ Z AI — logika strony (vanilla JS, bez bibliotek)
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  var AUTOR = "marcel barut"; // na okładkach zawsze małymi literami
+
+  /* ---------- Pomocnicze ---------- */
+  function h(str) {
+    return String(str == null ? "" : str)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function qs(sel, root) { return (root || document).querySelector(sel); }
+  function get(url) {
+    return fetch(url, { cache: "no-cache" }).then(function (r) {
+      if (!r.ok) throw new Error("Błąd ładowania: " + url);
+      return r.json();
+    });
+  }
+
+  /* ---------- Okładka generowana w kodzie (nie obrazek) ---------- */
+  function coverHTML(ebook, klasa) {
+    var bg = ebook.kolor_okladki || "#000000";
+    var akc = ebook.kolor_akcent || "#E8FF3A";
+    return (
+      '<div class="cover ' + (klasa || "") + '" style="background:' + h(bg) + '" aria-hidden="true">' +
+        '<div class="cover__autor">' + h(AUTOR) + "</div>" +
+        '<div>' +
+          '<div class="cover__tytul">' + h(ebook.tytul) + "</div>" +
+          '<div class="cover__pasek" style="background:' + h(akc) + '"></div>' +
+        "</div>" +
+      "</div>"
+    );
+  }
+
+  /* ---------- Hero: wachlarz 3 okładek ---------- */
+  function renderWachlarz(ebooki) {
+    var box = qs("#hero-waclarz");
+    if (!box) return;
+    box.innerHTML = ebooki.slice(0, 3).map(function (e) { return coverHTML(e); }).join("");
+  }
+
+  /* ---------- Nowości AI ---------- */
+  function newsCardHTML(n) {
+    var link = n.link_zrodla && n.link_zrodla.indexOf("[") !== 0
+      ? '<a class="news__link" href="' + h(n.link_zrodla) + '" target="_blank" rel="noopener">Źródło →</a>'
+      : '<span class="news__link" style="color:var(--tekst-2)">[LINK DO ŹRÓDŁA]</span>';
+    return (
+      '<article class="karta news">' +
+        '<div class="news__data">' + h(n.data) + "</div>" +
+        '<h3 class="news__tytul">' + h(n.tytul) + "</h3>" +
+        "<p>" + h(n.opis) + "</p>" +
+        link +
+      "</article>"
+    );
+  }
+
+  function renderNews(news) {
+    var aktualne = qs("#news-aktualne");
+    if (aktualne) {
+      aktualne.innerHTML = news.slice(0, 3).map(newsCardHTML).join("");
+    }
+    var archiwum = qs("#news-archiwum");
+    if (archiwum) {
+      var grupy = {};
+      var kolejnosc = [];
+      news.forEach(function (n) {
+        var k = n.tydzien || "Pozostałe";
+        if (!grupy[k]) { grupy[k] = []; kolejnosc.push(k); }
+        grupy[k].push(n);
+      });
+      archiwum.innerHTML = kolejnosc.map(function (k) {
+        return (
+          '<div class="mt-40">' +
+            "<h2>" + h(k) + "</h2>" +
+            '<div class="siatka siatka--3">' + grupy[k].map(newsCardHTML).join("") + "</div>" +
+          "</div>"
+        );
+      }).join("");
+    }
+  }
+
+  /* ---------- Ebooki ---------- */
+  function ebookCardHTML(e) {
+    var wkrotce = e.status === "wkrotce";
+    var cena = e.cena && e.cena.indexOf("[") !== 0 ? h(e.cena) : "[CENA]";
+    var punkty = (e.punkty || []).map(function (p) { return "<li>" + h(p) + "</li>"; }).join("");
+    var badge = wkrotce ? '<span class="badge badge--wkrotce">Wkrótce</span>' : '<span class="badge">Dostępny</span>';
+
+    var cta;
+    if (wkrotce) {
+      cta = '<a class="btn btn--obrys btn--maly" href="#newsletter">Daj znać, gdy wyjdzie</a>';
+    } else if (e.link_payhip && e.link_payhip.indexOf("[") !== 0) {
+      cta = '<a class="btn btn--akcent btn--maly" href="' + h(e.link_payhip) + '" target="_blank" rel="noopener">Kup</a>';
+    } else {
+      cta = '<a class="btn btn--akcent btn--maly" href="#" aria-disabled="true" title="Uzupełnij link Payhip">Kup</a>';
+    }
+
+    return (
+      '<article class="karta ebook">' +
+        '<div class="ebook__cover">' + coverHTML(e) + "</div>" +
+        '<div class="ebook__tresc">' +
+          badge +
+          '<h3 class="ebook__tytul">' + h(e.tytul) + "</h3>" +
+          "<p>" + h(e.opis) + "</p>" +
+          '<ul class="ebook__punkty">' + punkty + "</ul>" +
+          '<div class="ebook__stopka">' +
+            (wkrotce ? "" : '<span class="ebook__cena">' + cena + "</span>") +
+            cta +
+          "</div>" +
+        "</div>" +
+      "</article>"
+    );
+  }
+
+  function renderEbooki(ebooki) {
+    var box = qs("#ebooki-lista");
+    if (box) box.innerHTML = ebooki.map(ebookCardHTML).join("");
+  }
+
+  /* ---------- Projekty / aplikacje ---------- */
+  function projektCardHTML(p, i) {
+    var tagi = (p.tagi || []).map(function (t) { return '<span class="badge">' + h(t) + "</span>"; }).join("");
+    var link = p.link && p.link.indexOf("[") !== 0
+      ? '<a class="btn btn--akcent btn--maly" href="' + h(p.link) + '" target="_blank" rel="noopener">' + h(p.link_label || "Zobacz") + "</a>"
+      : '<span class="btn btn--obrys btn--maly btn--wylaczony">' + h(p.link_label || "Wkrótce") + "</span>";
+
+    // Dla pierwszego projektu (HABLA) renderujemy makietę telefonu w CSS.
+    var media = i === 0
+      ? '<div class="projekt__media">' + telefonHTML() + "</div>"
+      : '<div class="projekt__media">' + coverPlaceholderHTML(p) + "</div>";
+
+    return (
+      '<article class="projekt' + (i % 2 ? " projekt--odwrot" : "") + '">' +
+        media +
+        "<div>" +
+          '<span class="nadtytul">' + h(p.typ) + "</span>" +
+          '<h3 class="projekt__tytul">' + h(p.tytul) + "</h3>" +
+          '<div class="projekt__meta">' + tagi + "</div>" +
+          "<p>" + h(p.opis) + "</p>" +
+          '<div class="projekt__akcje">' + link + "</div>" +
+        "</div>" +
+      "</article>"
+    );
+  }
+
+  function telefonHTML() {
+    return (
+      '<div class="telefon" role="img" aria-label="Makieta aplikacji HABLA do nauki hiszpańskiego">' +
+        '<div class="telefon__ekran">' +
+          '<div class="telefon__top"><span>HABLA</span><span class="telefon__xp">240 XP</span></div>' +
+          '<div class="telefon__awatar">L</div>' +
+          '<div class="telefon__linia"></div>' +
+          '<div class="telefon__linia telefon__linia--k"></div>' +
+          '<div class="telefon__pasek"><span></span></div>' +
+          '<div class="telefon__btn">Ucz się dalej</div>' +
+        "</div>" +
+      "</div>"
+    );
+  }
+
+  function coverPlaceholderHTML(p) {
+    return coverHTML({ tytul: p.tytul, kolor_okladki: "#161616", kolor_akcent: "#E8FF3A" });
+  }
+
+  function renderProjekty(projekty) {
+    var box = qs("#projekty-lista");
+    if (box) box.innerHTML = projekty.map(projektCardHTML).join("");
+  }
+
+  /* ---------- Newsletter ---------- */
+  function emailOk(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+  function initNewsletter() {
+    var form = qs("#newsletter-form");
+    if (!form) return;
+    var email = qs("#nl-email", form);
+    var zgoda = qs("#nl-zgoda", form);
+    var komunikat = qs("#nl-komunikat", form);
+    var przycisk = qs('button[type="submit"]', form);
+
+    function msg(text, ok) {
+      komunikat.textContent = text;
+      komunikat.className = "komunikat " + (ok ? "komunikat--ok" : "komunikat--blad");
+    }
+
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      komunikat.textContent = "";
+      var val = (email.value || "").trim();
+
+      if (!emailOk(val)) { msg("Podaj poprawny adres e-mail.", false); email.focus(); return; }
+      if (!zgoda.checked) { msg("Zaznacz zgodę, żeby móc Cię zapisać.", false); zgoda.focus(); return; }
+
+      var cfg = window.BUDUJ_CONFIG || {};
+      var skonfig = cfg.SUPABASE_URL && cfg.SUPABASE_URL.indexOf("[") !== 0 &&
+                    cfg.SUPABASE_ANON_KEY && cfg.SUPABASE_ANON_KEY.indexOf("[") !== 0;
+
+      if (!skonfig) {
+        msg("Dzięki! Zapisy e-mail nie są jeszcze podłączone — wróć za chwilę. (konfiguracja: README)", true);
+        form.reset();
+        return;
+      }
+
+      przycisk.disabled = true;
+      var url = cfg.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/" + (cfg.SUBSCRIBERS_TABLE || "subscribers");
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "apikey": cfg.SUPABASE_ANON_KEY,
+          "Authorization": "Bearer " + cfg.SUPABASE_ANON_KEY,
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({ email: val, consent: true })
+      }).then(function (r) {
+        if (r.status === 201 || r.status === 200 || r.status === 204) {
+          msg("Zapisane! Sprawdź skrzynkę — wkrótce dostaniesz pierwszą checklistę.", true);
+          form.reset();
+        } else if (r.status === 409) {
+          msg("Ten adres jest już zapisany. Do zobaczenia w newsletterze!", true);
+          form.reset();
+        } else {
+          return r.text().then(function (t) {
+            msg("Coś poszło nie tak. Spróbuj ponownie za chwilę.", false);
+            if (window.console) console.warn("Newsletter:", r.status, t);
+          });
+        }
+      }).catch(function () {
+        msg("Brak połączenia. Sprawdź internet i spróbuj ponownie.", false);
+      }).then(function () {
+        przycisk.disabled = false;
+      });
+    });
+  }
+
+  /* ---------- Menu mobilne ---------- */
+  function initNav() {
+    var toggle = qs("#nav-toggle");
+    var nav = qs("#nav");
+    if (!toggle || !nav) return;
+    toggle.addEventListener("click", function () {
+      var otwarte = nav.classList.toggle("otwarte");
+      toggle.setAttribute("aria-expanded", otwarte ? "true" : "false");
+    });
+    nav.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") { nav.classList.remove("otwarte"); toggle.setAttribute("aria-expanded", "false"); }
+    });
+  }
+
+  /* ---------- Przełącznik stylów ---------- */
+  function initSwitch() {
+    var box = qs(".styl-switch");
+    if (!box) return;
+    var aktywny = document.documentElement.getAttribute("data-styl") || "a";
+    var btns = box.querySelectorAll("button[data-styl]");
+    Array.prototype.forEach.call(btns, function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-styl") === aktywny ? "true" : "false");
+      b.addEventListener("click", function () {
+        var s = b.getAttribute("data-styl");
+        try { localStorage.setItem("bza-styl", s); } catch (e) {}
+        location.search = "?styl=" + s;   // przeładowanie z wybranym stylem (bez mignięcia)
+      });
+    });
+  }
+
+  /* ---------- Rok w stopce ---------- */
+  function initRok() {
+    var el = qs("#rok");
+    if (el) el.textContent = new Date().getFullYear();
+  }
+
+  /* ---------- Start ---------- */
+  function baza() {
+    // Ścieżka do /data działa i z podstron, i z korzenia (wszystko w jednym folderze).
+    return "data/";
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initNav();
+    initSwitch();
+    initRok();
+    initNewsletter();
+
+    if (qs("#hero-waclarz") || qs("#ebooki-lista")) {
+      get(baza() + "ebooks.json").then(function (ebooki) {
+        renderWachlarz(ebooki);
+        renderEbooki(ebooki);
+      }).catch(function (e) { if (window.console) console.warn(e); });
+    }
+    if (qs("#news-aktualne") || qs("#news-archiwum")) {
+      get(baza() + "news.json").then(renderNews).catch(function (e) { if (window.console) console.warn(e); });
+    }
+    if (qs("#projekty-lista")) {
+      get(baza() + "projekty.json").then(renderProjekty).catch(function (e) { if (window.console) console.warn(e); });
+    }
+  });
+})();

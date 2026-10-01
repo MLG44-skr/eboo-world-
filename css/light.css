@@ -1,0 +1,49 @@
+/* =========================================================================
+   Wariant C — "Jasny"
+   Zamienia zestaw kolorów na jasny (kość + czerń + limonka).
+   Ładowany tylko gdy aktywny, więc nadpisuje zmienne globalnie.
+   ========================================================================= */
+
+:root {
+  --tlo: #F4F4F0;
+  --tekst: #16160f;
+  --tekst-2: #55554c;
+  --akcent: #E8FF3A;
+  --karta: #ffffff;
+  --ramka: #e2e2d8;
+}
+
+body { background: var(--tlo); color: var(--tekst); }
+
+/* Linki: limonka nie ma kontrastu na bieli → ciemny zielony dla czytelności */
+a { color: #0a6b00; }
+
+/* Nagłówek jasny */
+.header { background: rgba(244,244,240,.9); border-bottom-color: var(--ramka); }
+.nav__links a { color: var(--tekst-2); }
+.nav__links a:hover { color: var(--tekst); }
+.nav__toggle { color: var(--tekst); border-color: var(--ramka); }
+@media (max-width: 860px) { .nav { background: var(--tlo); } }
+
+/* Przyciski obrysowe na jasnym */
+.btn--obrys { color: var(--tekst); border-color: var(--ramka); }
+.btn--obrys:hover { border-color: var(--tekst); }
+
+/* Pasek tematów / chipy */
+.chip { background: #fff; }
+
+/* Kroki / karty cień zamiast ciężkiej ramki */
+.karta, .krok, .projekt { box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+
+/* Okładki zostają ciemne — to celowe (kontrast). Telefon-makieta też. */
+.telefon { background: #16160f; }
+.telefon__linia, .telefon__pasek { background: #f0f0ea; border-color: #ddddd2; }
+.telefon__top { color: #cfcfc6; }
+
+/* Przełącznik stylów widoczny na jasnym */
+.styl-switch { background: rgba(255,255,255,.92); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+
+/* FAQ summary czytelny */
+.faq summary { color: var(--tekst); }
+
+/* Sekcja newsletter (limonka + czarny tekst) działa bez zmian */

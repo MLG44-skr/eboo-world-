@@ -1,0 +1,45 @@
+/* =========================================================================
+   Wariant B — "Edytorski / portfolio"
+   Ten sam ciemny motyw, ale układ bardziej magazynowy: większa typografia,
+   okładki jako bohater, więcej powietrza, cieńsze ramki. Zmiany głównie
+   układ + skala (bez zmiany kolorów).
+   ========================================================================= */
+
+/* Typografia mocniejsza, plakatowa */
+h1 { font-size: clamp(2.6rem, 10vw, 5.6rem); letter-spacing: -0.03em; }
+h2 { font-size: clamp(2rem, 7vw, 3.6rem); }
+.nadtytul { font-size: .78rem; letter-spacing: 0.22em; }
+section { padding: 72px 0; }
+
+/* Hero: okładki jako bohater (większe, bliżej siebie) */
+@media (min-width: 900px) {
+  .hero__grid { grid-template-columns: 1fr 1fr; }
+}
+.waclarz { min-height: 360px; }
+.waclarz .cover { width: 220px; }
+@media (min-width: 900px) { .waclarz .cover { width: 250px; } }
+
+/* Cienka linia nad nagłówkami sekcji — jak w magazynie */
+.sekcja__head { border-top: 1px solid var(--ramka); padding-top: 22px; }
+
+/* Karty bez wypełnienia — bardziej "redakcyjnie" */
+.karta { background: transparent; border-color: var(--ramka); }
+.news { border-left: 3px solid var(--akcent); border-radius: 0 var(--promien) var(--promien) 0; }
+
+/* Ebooki: okładka większa, układ bardziej jak portfolio */
+@media (min-width: 620px) {
+  .ebook__cover { flex: 0 0 200px; }
+}
+.ebook__tytul { font-size: 1.5rem; }
+
+/* Projekty: większy rytm */
+.projekt { background: transparent; padding: 28px 0; border-left: 0; border-right: 0; border-radius: 0; }
+.projekt + .projekt { border-top: 1px solid var(--ramka); }
+
+/* Kroki jako wyraźne liczby-plakaty */
+.krok { background: transparent; }
+.krok__num { width: 44px; height: 44px; font-size: 1.2rem; }
+
+/* Fragment ebooka — szersza, bardziej książkowa kolumna */
+.fragment { padding: 48px 40px; }
+.fragment p { font-size: 1.1rem; }

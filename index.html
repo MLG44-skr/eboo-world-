@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buduj z AI — ebooki, aplikacje i cotygodniowe nowości AI | Marcel Barut</title>
+  <meta name="description" content="Praktyczne ebooki i aplikacje budowane z AI oraz 3 nowości AI co tydzień. Konkret bez lania wody — od 18-latka, który naprawdę buduje. Zbuduj swoją pierwszą rzecz w weekend." />
+  <meta name="author" content="Marcel Barut" />
+  <meta name="theme-color" content="#0E0E0E" />
+  <link rel="canonical" href="[ADRES_STRONY_DO_UZUPEŁNIENIA]/" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:site_name" content="Buduj z AI" />
+  <meta property="og:title" content="Buduj z AI — ebooki, aplikacje i nowości AI od 18-latka" />
+  <meta property="og:description" content="Praktyczne ebooki i aplikacje budowane z AI + 3 nowości AI co tydzień. Konkret bez lania wody." />
+  <meta property="og:url" content="[ADRES_STRONY_DO_UZUPEŁNIENIA]/" />
+  <meta property="og:image" content="[ADRES_STRONY_DO_UZUPEŁNIENIA]/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Buduj z AI — ebooki, aplikacje i nowości AI" />
+  <meta name="twitter:description" content="Praktyczne ebooki i aplikacje budowane z AI + 3 nowości AI co tydzień." />
+  <meta name="twitter:image" content="[ADRES_STRONY_DO_UZUPEŁNIENIA]/og-image.png" />
+
+  <!-- Fonty Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Przełącznik stylów: ładuje wybrany motyw jeszcze przed malowaniem (bez mignięcia) -->
+  <script>
+  (function () {
+    var mapa = { a: "css/motion.css", b: "css/editorial.css", c: "css/light.css" };
+    var p = new URLSearchParams(location.search).get("styl");
+    var s = p || localStorage.getItem("bza-styl") || "a";
+    if (!mapa[s]) s = "a";
+    document.documentElement.setAttribute("data-styl", s);
+    if (mapa[s]) document.write('<link rel="stylesheet" href="' + mapa[s] + '" id="theme-extra">');
+  })();
+  </script>
+
+  <!-- Dane strukturalne (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Marcel Barut",
+    "url": "[ADRES_STRONY_DO_UZUPEŁNIENIA]/",
+    "description": "18-latek, który buduje ebooki i aplikacje z AI.",
+    "sameAs": ["[LINK_INSTAGRAM]", "[LINK_TIKTOK]", "[LINK_YOUTUBE]"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+
+  <!-- Przełącznik stylów (podgląd wariantów) -->
+  <div class="styl-switch" role="group" aria-label="Styl strony">
+    <span class="styl-switch__label">Styl:</span>
+    <button type="button" data-styl="a">Ciemny</button>
+    <button type="button" data-styl="b">Edytorski</button>
+    <button type="button" data-styl="c">Jasny</button>
+  </div>
+
+  <!-- ====================== HEADER ====================== -->
+  <header class="header">
+    <div class="kontener header__row">
+      <a class="logo" href="index.html" aria-label="Buduj z AI — strona główna">BUDUJ Z AI<span class="kropka">.</span></a>
+      <button id="nav-toggle" class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav">☰</button>
+      <nav id="nav" class="nav" aria-label="Główna nawigacja">
+        <ul class="nav__links">
+          <li><a href="#nowosci">Nowości</a></li>
+          <li><a href="#ebooki">Ebooki</a></li>
+          <li><a href="#projekty">Projekty</a></li>
+          <li><a href="#omnie">O mnie</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a class="btn btn--akcent btn--maly" href="#newsletter">Newsletter za darmo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ====================== HERO ====================== -->
+    <section class="hero">
+      <div class="kontener hero__grid">
+        <div>
+          <p class="nadtytul">Ebooki, aplikacje i nowości — od 18-latka, który buduje różne rzeczy z AI</p>
+          <h1>Zbuduj swoją pierwszą rzecz z AI. W weekend, nie w semestr.</h1>
+          <p class="hero__sub">Aplikacje, ebooki, narzędzia, nauka — pokazuję dokładnie, co klikam i co wpisuję. AI to moje narzędzie, nie temat sam w sobie. Zbuduj coś swojego, zanim zdążysz się rozmyślić.</p>
+          <div class="hero__akcje">
+            <a class="btn btn--akcent" href="#ebooki">Zobacz ebooki</a>
+            <a class="btn btn--obrys" href="#newsletter">Dołącz do newslettera</a>
+          </div>
+        </div>
+        <div class="waclarz" id="hero-waclarz" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ====================== PASEK MOŻLIWOŚCI ====================== -->
+    <div class="topics">
+      <div class="kontener topics__row">
+        <span class="chip"><span class="kropka">●</span> Aplikacje</span>
+        <span class="chip"><span class="kropka">●</span> Nauka języków</span>
+        <span class="chip"><span class="kropka">●</span> Gry i boty</span>
+        <span class="chip"><span class="kropka">●</span> Prompty, które działają</span>
+        <span class="chip"><span class="kropka">●</span> Agenci AI</span>
+        <span class="chip"><span class="kropka">●</span> Automatyzacje</span>
+        <span class="chip"><span class="kropka">●</span> Pierwsza strona WWW</span>
+        <span class="chip"><span class="kropka">●</span> Nauka 2× szybciej</span>
+      </div>
+    </div>
+
+    <!-- ====================== NOWOŚCI AI ====================== -->
+    <section id="nowosci">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Co tydzień</p>
+          <h2>Nowości AI w tym tygodniu</h2>
+          <p>Trzy rzeczy ze świata AI, które naprawdę coś zmieniają — i jedno zdanie, co to znaczy dla Ciebie.</p>
+        </div>
+        <div class="siatka siatka--3" id="news-aktualne"></div>
+        <div class="na-srodku-btn mt-40">
+          <a class="btn btn--obrys" href="nowosci.html">Archiwum poprzednich tygodni</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== JAK TO DZIAŁA ====================== -->
+    <section id="jak">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Prościej się nie da</p>
+          <h2>Jak to działa</h2>
+        </div>
+        <div class="kroki">
+          <div class="krok"><div class="krok__num">1</div><div class="krok__tekst">Wybierasz ebook</div></div>
+          <div class="krok"><div class="krok__num">2</div><div class="krok__tekst">Płacisz online</div></div>
+          <div class="krok"><div class="krok__num">3</div><div class="krok__tekst">PDF ląduje na e-mail</div></div>
+          <div class="krok"><div class="krok__num">4</div><div class="krok__tekst">Czytasz na telefonie i komputerze</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== EBOOKI ====================== -->
+    <section id="ebooki">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Do kupienia</p>
+          <h2>Ebooki</h2>
+          <p>Krótkie, konkretne przewodniki o budowaniu z AI — aplikacje, nauka, narzędzia. Każdy prowadzi Cię od zera do rzeczy, którą możesz pokazać znajomym.</p>
+        </div>
+        <div class="siatka siatka--ebooki" id="ebooki-lista"></div>
+      </div>
+    </section>
+
+    <!-- ====================== PROJEKTY / APLIKACJE ====================== -->
+    <section id="projekty">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Nie tylko teoria</p>
+          <h2>Co buduję z AI</h2>
+          <p>Zanim coś opiszę w ebooku, najpierw to buduję. Oto rzeczy, które powstały z AI — żebyś widział, że to działa naprawdę.</p>
+        </div>
+        <div id="projekty-lista"></div>
+      </div>
+    </section>
+
+    <!-- ====================== NEWSLETTER ====================== -->
+    <section id="newsletter">
+      <div class="kontener">
+        <div class="newsletter">
+          <p class="nadtytul" style="color:#000">Za darmo</p>
+          <h2>Co tydzień 3 nowości AI, które naprawdę coś zmieniają</h2>
+          <p>Plus checklista 10 promptów na start — dostajesz ją od razu po zapisie.</p>
+          <form id="newsletter-form" class="newsletter__form" novalidate>
+            <div class="pole">
+              <label for="nl-email">Twój e-mail</label>
+              <input type="email" id="nl-email" name="email" autocomplete="email" placeholder="ty@przyklad.pl" required />
+            </div>
+            <div class="zgoda">
+              <input type="checkbox" id="nl-zgoda" name="zgoda" required />
+              <label for="nl-zgoda">Zgadzam się na otrzymywanie newslettera i akceptuję <a href="polityka-prywatnosci.html">politykę prywatności</a>.</label>
+            </div>
+            <button type="submit" class="btn btn--ciemny">Zapisz mnie</button>
+            <p class="komunikat" id="nl-komunikat" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== O MNIE ====================== -->
+    <section id="omnie">
+      <div class="kontener">
+        <div class="omnie__grid">
+          <div class="omnie__foto">[TWOJE ZDJĘCIE]</div>
+          <div>
+            <p class="nadtytul">O mnie</p>
+            <h2>Cześć, jestem Marcel</h2>
+            <p>Mam 18 lat i buduję różne rzeczy z AI — aplikacje, strony, narzędzia. Zrobiłem HABLA — aplikację do nauki hiszpańskiego w stylu Duolingo, z postacią Laurą, XP i seriami dni. W ebookach pokazuję dokładnie, jak to robię.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== FRAGMENT EBOOKA ====================== -->
+    <section id="fragment">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Zajrzyj do środka</p>
+          <h2>Fragment ebooka</h2>
+        </div>
+        <div class="fragment">
+          <p class="fragment__etykieta">Rozdział 1 — Zanim napiszesz pierwszy prompt</p>
+          <h3>Zanim napiszesz pierwszy prompt</h3>
+          <p>Większość ludzi otwiera AI i zaczyna pisać „zrób mi aplikację”. Potem dziwią się, że wychodzi coś, czego nie rozumieją. Zacznijmy inaczej — od jednego zdania, które opisuje, co ma się wydarzyć, gdy ktoś kliknie przycisk.</p>
+          <p>[DALSZY FRAGMENT ROZDZIAŁU 1 DO UZUPEŁNIENIA — wklej 1–2 akapity z prawdziwego ebooka.]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== OPINIE ====================== -->
+    <section id="opinie">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Co mówią czytelnicy</p>
+          <h2>Opinie</h2>
+        </div>
+        <div class="siatka siatka--3">
+          <div class="opinia">[Opinia czytelnika]</div>
+          <div class="opinia">[Opinia czytelnika]</div>
+          <div class="opinia">[Opinia czytelnika]</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== FAQ ====================== -->
+    <section id="faq">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Pytania</p>
+          <h2>Najczęstsze pytania</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>W jakim formacie są ebooki?</summary>
+            <p>W PDF — otwierasz na telefonie, tablecie i komputerze, bez żadnej dodatkowej aplikacji.</p>
+          </details>
+          <details>
+            <summary>Kiedy dostanę plik?</summary>
+            <p>Od razu po zakupie — PDF przychodzi na e-mail, który podasz przy płatności.</p>
+          </details>
+          <details>
+            <summary>Czy muszę umieć programować?</summary>
+            <p>Nie. Wszystko jest tłumaczone od zera, krok po kroku, prostym językiem.</p>
+          </details>
+          <details>
+            <summary>Jakie są metody płatności?</summary>
+            <p>[METODY PŁATNOŚCI DO UZUPEŁNIENIA — np. BLIK, karta, Przelewy24 przez sklep Payhip.]</p>
+          </details>
+          <details>
+            <summary>Czy mogę zwrócić ebook?</summary>
+            <p>[ZASADY ZWROTÓW DO UZUPEŁNIENIA — produkty cyfrowe; patrz Regulamin.]</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================== STOPKA ====================== -->
+  <footer class="footer">
+    <div class="kontener footer__row">
+      <small>© <span id="rok">2026</span> Marcel Barut</small>
+      <ul class="footer__links">
+        <li><a href="[LINK_INSTAGRAM]" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="[LINK_TIKTOK]" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="[LINK_YOUTUBE]" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="regulamin.html">Regulamin</a></li>
+        <li><a href="polityka-prywatnosci.html">Polityka prywatności</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

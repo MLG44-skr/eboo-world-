@@ -1,0 +1,62 @@
+[
+  {
+    "id": "pierwsza-apka",
+    "tytul": "Pierwsza apka z AI w jeden weekend",
+    "opis": "Od pustego ekranu do działającej aplikacji w dwa dni. Krok po kroku, bez teorii, którą i tak byś pominął.",
+    "punkty": [
+      "Co postawić w sobotę rano, a co zostawić na niedzielę",
+      "Dokładne prompty, które budują działający kod",
+      "Jak opublikować apkę, żeby pokazać ją znajomym"
+    ],
+    "cena": "[CENA DO UZUPEŁNIENIA]",
+    "link_payhip": "[LINK PAYHIP DO UZUPEŁNIENIA]",
+    "kolor_okladki": "#000000",
+    "kolor_akcent": "#E8FF3A",
+    "status": "dostepny"
+  },
+  {
+    "id": "claude-od-zera",
+    "tytul": "Claude od zera: prompty, które działają",
+    "opis": "Przestań zgadywać, co wpisać. Zestaw sprawdzonych wzorców promptów, których używam codziennie przy budowaniu.",
+    "punkty": [
+      "Struktura promptu, która daje powtarzalny wynik",
+      "Jak rozmawiać z AI, gdy coś nie działa",
+      "Gotowe szablony do skopiowania i wklejenia"
+    ],
+    "cena": "[CENA DO UZUPEŁNIENIA]",
+    "link_payhip": "[LINK PAYHIP DO UZUPEŁNIENIA]",
+    "kolor_okladki": "#2D5BFF",
+    "kolor_akcent": "#E8FF3A",
+    "status": "dostepny"
+  },
+  {
+    "id": "agenci-ai",
+    "tytul": "Agenci AI dla początkujących",
+    "opis": "Zbuduj swojego pierwszego agenta, który sam wykonuje zadania. Prosto wyjaśnione, bez żargonu i magii.",
+    "punkty": [
+      "Czym naprawdę jest agent AI (bez ściemy)",
+      "Pierwszy agent, który robi coś użytecznego",
+      "Granice bezpieczeństwa — czego agentowi nie wolno"
+    ],
+    "cena": "[CENA DO UZUPEŁNIENIA]",
+    "link_payhip": "[LINK PAYHIP DO UZUPEŁNIENIA]",
+    "kolor_okladki": "#FF6A1A",
+    "kolor_akcent": "#0E0E0E",
+    "status": "dostepny"
+  },
+  {
+    "id": "nauka-z-ai",
+    "tytul": "Nauka z AI: ucz się 2× szybciej",
+    "opis": "Jak używać AI do nauki czegokolwiek — od języków po programowanie. Metody, które realnie skracają czas.",
+    "punkty": [
+      "Jak zamienić AI w prywatnego korepetytora",
+      "Powtórki, które wchodzą do głowy na stałe",
+      "Plan nauki ułożony pod Ciebie"
+    ],
+    "cena": "[CENA DO UZUPEŁNIENIA]",
+    "link_payhip": "[LINK PAYHIP DO UZUPEŁNIENIA]",
+    "kolor_okladki": "#1F8A70",
+    "kolor_akcent": "#E8FF3A",
+    "status": "wkrotce"
+  }
+]
