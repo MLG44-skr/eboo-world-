@@ -12,7 +12,7 @@
   --ramka: #262626;
   --promien: 16px;
   --promien-maly: 12px;
-  --maks: 1120px;
+  --maks: 1200px;
   --font-naglowek: "Bricolage Grotesque", system-ui, sans-serif;
   --font-tekst: "Instrument Sans", system-ui, -apple-system, sans-serif;
 }
@@ -30,6 +30,7 @@ body {
   font-family: var(--font-tekst);
   font-size: 17px;
   line-height: 1.6;
+  overflow-x: hidden;            /* żaden element nie wywołuje poziomego scrolla */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -45,10 +46,11 @@ h1, h2, h3 {
   line-height: 1.04;
   letter-spacing: -0.02em;
   margin: 0 0 0.4em;
+  overflow-wrap: break-word;       /* długie słowa nie rozpychają layoutu */
 }
 
-h1 { font-size: clamp(2.2rem, 8vw, 4.2rem); }
-h2 { font-size: clamp(1.7rem, 5.5vw, 2.8rem); }
+h1 { font-size: clamp(1.85rem, 7vw, 4.2rem); }
+h2 { font-size: clamp(1.55rem, 5vw, 2.8rem); }
 h3 { font-size: clamp(1.15rem, 3.5vw, 1.5rem); }
 
 p { margin: 0 0 1rem; color: var(--tekst-2); }
@@ -198,7 +200,8 @@ input:focus-visible,
 
 /* ---------------------------------------------------------------- Hero */
 .hero { padding-top: 48px; }
-.hero__grid { display: grid; gap: 40px; align-items: center; }
+.hero__grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+.hero__grid > * { min-width: 0; }   /* pozwól kolumnie się zwęzić (tekst zawija, brak poziomego overflow) */
 .hero__sub { font-size: 1.1rem; max-width: 46ch; }
 .hero__akcje { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 
@@ -206,7 +209,7 @@ input:focus-visible,
   .hero__grid { grid-template-columns: 1.1fr 0.9fr; gap: 56px; }
 }
 
-/* Wachlarz okładek w hero */
+/* Wachlarz okładek w hero — stała, umiarkowana szerokość, obok tekstu (nie na nim) */
 .waclarz {
   position: relative;
   display: flex;
@@ -214,13 +217,17 @@ input:focus-visible,
   align-items: center;
   min-height: 300px;
   padding: 20px 0;
+  max-width: 100%;
+  overflow: hidden;
 }
-.waclarz .cover { width: 180px; position: absolute; box-shadow: 0 18px 40px rgba(0,0,0,.5); }
-.waclarz .cover:nth-child(1) { transform: rotate(-12deg) translateX(-80px) translateY(10px); z-index: 1; }
+.waclarz .cover { width: 150px; position: absolute; box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+.waclarz .cover:nth-child(1) { transform: rotate(-11deg) translateX(-62px) translateY(10px); z-index: 1; }
 .waclarz .cover:nth-child(2) { transform: rotate(0deg); z-index: 3; }
-.waclarz .cover:nth-child(3) { transform: rotate(12deg) translateX(80px) translateY(10px); z-index: 2; }
+.waclarz .cover:nth-child(3) { transform: rotate(11deg) translateX(62px) translateY(10px); z-index: 2; }
 @media (min-width: 900px) {
-  .waclarz .cover { width: 210px; }
+  .waclarz .cover { width: 180px; }        /* max ~260 px łącznie z rozsunięciem */
+  .waclarz .cover:nth-child(1) { transform: rotate(-11deg) translateX(-74px) translateY(10px); }
+  .waclarz .cover:nth-child(3) { transform: rotate(11deg) translateX(74px) translateY(10px); }
 }
 
 /* ---------------------------------------------------------------- Okładka (generowana w kodzie) */
@@ -300,7 +307,9 @@ input:focus-visible,
 
 /* ---------------------------------------------------------------- Ebooki */
 .ebook { display: flex; flex-direction: column; gap: 16px; }
-.ebook__cover { width: 100%; max-width: 160px; }
+.ebook__cover { width: 100%; max-width: 140px; }
+/* Okładka ebooka: proporcja 5/8 w ograniczonym kontenerze (nigdy cała karta) */
+.ebook__cover .cover { aspect-ratio: 5 / 8; }
 .ebook__tytul { font-size: 1.25rem; }
 .ebook__punkty { list-style: none; margin: 4px 0 0; padding: 0; }
 .ebook__punkty li { position: relative; padding-left: 24px; color: var(--tekst-2); margin-bottom: 8px; }
@@ -318,9 +327,9 @@ input:focus-visible,
 .badge--wkrotce { border-color: var(--akcent); color: var(--akcent); }
 
 @media (min-width: 620px) {
-  .ebook { flex-direction: row; }
-  .ebook__cover { flex: 0 0 150px; }
-  .ebook__tresc { flex: 1; display: flex; flex-direction: column; }
+  .ebook { flex-direction: row; align-items: flex-start; }
+  .ebook__cover { flex: 0 0 140px; width: 140px; }
+  .ebook__tresc { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 }
 
 /* ---------------------------------------------------------------- Newsletter */
@@ -349,7 +358,8 @@ input:focus-visible,
 }
 
 /* ---------------------------------------------------------------- O mnie */
-.omnie__grid { display: grid; gap: 28px; align-items: center; }
+.omnie__grid { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; }
+.omnie__grid > * { min-width: 0; }
 /* 2 kolumny tylko gdy zdjęcie jest obecne (wstrzykiwane w ?wip=1) */
 @media (min-width: 760px) { .omnie__grid:has(.omnie__foto) { grid-template-columns: 240px 1fr; } }
 .omnie__foto {

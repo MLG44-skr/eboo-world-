@@ -143,6 +143,17 @@ strona pokaże „już zapisany”).
 
 ---
 
+## Cache / wersjonowanie assetów (WAŻNE)
+
+Żeby nikt nie dostał nowego HTML ze starym CSS/JS z cache, wszystkie pliki CSS/JS/JSON
+ładowane są z końcówką `?v=<numer>`. Numer jest w dwóch miejscach:
+- w czterech plikach `.html` (przy `style.css`, `config.js`, `app.js`, `wip.js` oraz w inline-skrypcie motywu),
+- w `js/app.js` jako `ASSET_V` (używany przy pobieraniu `data/*.json`).
+
+**Po KAŻDEJ zmianie w `css/*` lub `js/*` podnieś numer** (np. z `7` na `8`) w obu miejscach,
+potem commit + push. Inaczej odwiedzający z cache zobaczą „rozjechaną" stronę (nowy HTML + stary CSS).
+(Docelowo zautomatyzuje to skrypt build — patrz sekcja „Na później".)
+
 ## Flaga WIP — ukrywanie niegotowych elementów
 
 Elementy z `[NAWIASAMI]` (zdjęcie w „O mnie", dalszy fragment ebooka, opinie, linki do social,

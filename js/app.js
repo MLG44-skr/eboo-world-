@@ -6,6 +6,7 @@
 
   var AUTOR = "marcel barut"; // na okładkach zawsze małymi literami
   var WIP_POKAZ = false;      // tryb podglądu niegotowych treści (?wip=1 / POKAZ_WIP)
+  var ASSET_V = "7";          // wersja assetów (cache-busting); bump przy każdym deployu
 
   // Czy wartość to placeholder "[...DO UZUPEŁNIENIA]"?
   function isPH(v) { return typeof v === "string" && v.trim().charAt(0) === "["; }
@@ -20,7 +21,8 @@
   }
   function qs(sel, root) { return (root || document).querySelector(sel); }
   function get(url) {
-    return fetch(url, { cache: "no-cache" }).then(function (r) {
+    var u = url + (url.indexOf("?") < 0 ? "?" : "&") + "v=" + ASSET_V;
+    return fetch(u, { cache: "no-cache" }).then(function (r) {
       if (!r.ok) throw new Error("Błąd ładowania: " + url);
       return r.json();
     });
@@ -68,9 +70,16 @@
     if (!WIP_POKAZ) news = news.filter(function (n) { return !isPH(n.tytul); });
     var aktualne = qs("#news-aktualne");
     if (aktualne) {
-      aktualne.innerHTML = news.slice(0, 3).map(newsCardHTML).join("");
+      // Brak nowości -> ukryj całą sekcję (nie zostawiaj pustego nagłówka).
+      var sekcja = document.getElementById("nowosci");
+      if (news.length === 0 && sekcja) { sekcja.style.display = "none"; }
+      else { aktualne.innerHTML = news.slice(0, 3).map(newsCardHTML).join(""); }
     }
     var archiwum = qs("#news-archiwum");
+    if (archiwum && news.length === 0) {
+      archiwum.innerHTML = '<p class="hero__sub">Pierwsze wydania pojawią się wkrótce — zapisz się do newslettera, żeby nic nie przegapić.</p>';
+      archiwum = null;
+    }
     if (archiwum) {
       var grupy = {};
       var kolejnosc = [];
@@ -186,7 +195,10 @@
     // Na live pomijamy projekty-placeholdery (bez uzupełnionego tytułu).
     if (!WIP_POKAZ) projekty = projekty.filter(function (p) { return !isPH(p.tytul); });
     var box = qs("#projekty-lista");
-    if (box) box.innerHTML = projekty.map(projektCardHTML).join("");
+    if (!box) return;
+    var sekcja = document.getElementById("projekty");
+    if (projekty.length === 0 && sekcja) { sekcja.style.display = "none"; return; }
+    box.innerHTML = projekty.map(projektCardHTML).join("");
   }
 
   /* ---------- Newsletter ---------- */
