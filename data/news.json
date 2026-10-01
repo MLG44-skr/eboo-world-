@@ -1,23 +1,23 @@
 [
   {
-    "tydzien": "Tydzień 1 — [DATA TYGODNIA DO UZUPEŁNIENIA]",
-    "data": "[DATA DO UZUPEŁNIENIA]",
-    "tytul": "[TYTUŁ NOWOŚCI 1 DO UZUPEŁNIENIA]",
-    "opis": "[Dwa zdania: co to jest i co konkretnie zmienia dla Ciebie. DO UZUPEŁNIENIA]",
-    "link_zrodla": "[LINK DO ŹRÓDŁA DO UZUPEŁNIENIA]"
+    "tydzien": "Tydzień 29 września – 5 października 2026",
+    "data": "1 października 2026",
+    "tytul": "Gemini Live „widzi” przez kamerę — realna pomoc dla osób niewidomych",
+    "opis": "Nowa funkcja na żywo opisuje otoczenie z kamery telefonu i pomaga np. przeczytać drobny tekst albo znaleźć przedmiot. Dla Ciebie: dowód, że AI robi konkretne, przydatne rzeczy, a nie tylko generuje teksty.",
+    "link_zrodla": "https://blog.google/innovation-and-ai/products/gemini-app/guided-vision-gemini-live/"
   },
   {
-    "tydzien": "Tydzień 1 — [DATA TYGODNIA DO UZUPEŁNIENIA]",
-    "data": "[DATA DO UZUPEŁNIENIA]",
-    "tytul": "[TYTUŁ NOWOŚCI 2 DO UZUPEŁNIENIA]",
-    "opis": "[Dwa zdania: co to jest i co konkretnie zmienia dla Ciebie. DO UZUPEŁNIENIA]",
-    "link_zrodla": "[LINK DO ŹRÓDŁA DO UZUPEŁNIENIA]"
+    "tydzien": "Tydzień 29 września – 5 października 2026",
+    "data": "23 września 2026",
+    "tytul": "Gemini łączy się z Twoimi aplikacjami (Airtable, Linear, Adobe, Webflow…)",
+    "opis": "Google dodał do Gemini integracje z popularnymi narzędziami do pracy, kreacji i codziennych spraw. Dla Ciebie: możesz prosić AI o działania w Twoich aplikacjach bez skakania między kartami.",
+    "link_zrodla": "https://blog.google/innovation-and-ai/products/gemini-app/new-connected-apps-gemini/"
   },
   {
-    "tydzien": "Tydzień 1 — [DATA TYGODNIA DO UZUPEŁNIENIA]",
-    "data": "[DATA DO UZUPEŁNIENIA]",
-    "tytul": "[TYTUŁ NOWOŚCI 3 DO UZUPEŁNIENIA]",
-    "opis": "[Dwa zdania: co to jest i co konkretnie zmienia dla Ciebie. DO UZUPEŁNIENIA]",
-    "link_zrodla": "[LINK DO ŹRÓDŁA DO UZUPEŁNIENIA]"
+    "tydzien": "Tydzień 15–21 września 2026",
+    "data": "15 września 2026",
+    "tytul": "Aplikacje głosowe na Gemini 3.8 Live — rozmowa w ponad 97 językach",
+    "opis": "Google udostępnił modele audio do budowania aplikacji, które słuchają i odpowiadają głosem. Dla Ciebie: gotowa cegiełka, z której sam zbudujesz np. głosowego trenera do nauki języka.",
+    "link_zrodla": "https://blog.google/innovation-and-ai/technology/developers-tools/build-real-time-voice-applications-gemini-audio/"
   }
 ]

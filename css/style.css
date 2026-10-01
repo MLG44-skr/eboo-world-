@@ -335,6 +335,8 @@ input:focus-visible,
   font-family: var(--font-naglowek); font-weight: 800; letter-spacing: -0.01em;
   font-size: 1.3rem; color: #000; margin: 22px 0 0;
 }
+.newsletter__pobierz { color: #000; font-weight: 600; margin: 14px 0 0; }
+.newsletter__pobierz a { color: #000; font-weight: 800; text-decoration: underline; }
 
 /* ---------------------------------------------------------------- O mnie */
 .omnie__grid { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; }
