@@ -24,15 +24,6 @@
 
   /* Przyciski — delikatne uniesienie na hover jest już w bazie; tu puls akcentu */
   .btn--akcent:focus-visible { animation: bza-pulse 1s ease infinite; }
-
-  /* Odsłanianie kart przy scrollu — tylko gdy przeglądarka to wspiera */
-  @supports (animation-timeline: view()) {
-    .karta, .krok, .projekt, .ebook, .fragment, .opinia, .faq details {
-      animation: bza-reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 38%;
-    }
-  }
 }
 
 @keyframes bza-up     { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }

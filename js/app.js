@@ -6,7 +6,7 @@
 
   var AUTOR = "marcel barut"; // na okładkach zawsze małymi literami
   var WIP_POKAZ = false;      // tryb podglądu niegotowych treści (?wip=1 / POKAZ_WIP)
-  var ASSET_V = "7";          // wersja assetów (cache-busting); bump przy każdym deployu
+  var ASSET_V = "8";          // wersja assetów (cache-busting); bump przy każdym deployu
 
   // Czy wartość to placeholder "[...DO UZUPEŁNIENIA]"?
   function isPH(v) { return typeof v === "string" && v.trim().charAt(0) === "["; }
@@ -28,19 +28,13 @@
     });
   }
 
-  /* ---------- Okładka generowana w kodzie (nie obrazek) ---------- */
+  /* ---------- Okładka ebooka (ilustracja WebP z /img/covers) ---------- */
   function coverHTML(ebook, klasa) {
-    var bg = ebook.kolor_okladki || "#000000";
-    var akc = ebook.kolor_akcent || "#E8FF3A";
-    return (
-      '<div class="cover ' + (klasa || "") + '" style="background:' + h(bg) + '" aria-hidden="true">' +
-        '<div class="cover__autor">' + h(AUTOR) + "</div>" +
-        '<div>' +
-          '<div class="cover__tytul">' + h(ebook.tytul) + "</div>" +
-          '<div class="cover__pasek" style="background:' + h(akc) + '"></div>' +
-        "</div>" +
-      "</div>"
-    );
+    var id = ebook.id || "";
+    var src = "img/covers/" + id + "-400.webp?v=" + ASSET_V;
+    return '<img class="cover ' + (klasa || "") + '" src="' + h(src) +
+           '" width="400" height="640" loading="lazy" decoding="async" ' +
+           'alt="Okładka ebooka: ' + h(ebook.tytul || "") + '">';
   }
 
   /* ---------- Hero: wachlarz 3 okładek ---------- */
@@ -188,7 +182,8 @@
   }
 
   function coverPlaceholderHTML(p) {
-    return coverHTML({ tytul: p.tytul, kolor_okladki: "#161616", kolor_akcent: "#E8FF3A" });
+    return '<div class="projekt-cover-ph" aria-hidden="true"><span>' +
+           h(clean(p.tytul) || "Projekt") + "</span></div>";
   }
 
   function renderProjekty(projekty) {

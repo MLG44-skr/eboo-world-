@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2560" viewBox="0 0 1600 2560" fill="none">
+  <rect width="1600" height="2560" fill="#2D5BFF"/>
+
+  <text x="140" y="250" font-family="Instrument Sans, sans-serif" font-weight="600" font-size="54" letter-spacing="16" fill="#FFFFFF" opacity="0.9">MARCEL BARUT</text>
+
+  <g font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="230" letter-spacing="-6" fill="#FFFFFF">
+    <text x="134" y="620">Claude</text>
+    <text x="134" y="850">od zera</text>
+  </g>
+  <rect x="140" y="930" width="340" height="28" rx="14" fill="#FFFFFF"/>
+
+  <!-- motyw: cudzysłów + dymki czatu + kursor terminala -->
+  <g>
+    <text x="150" y="1620" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="620" fill="#FFFFFF" opacity="0.18">&#8220;</text>
+    <rect x="620" y="1380" width="620" height="150" rx="40" fill="#FFFFFF" opacity="0.95"/>
+    <rect x="520" y="1580" width="760" height="150" rx="40" fill="#FFFFFF" opacity="0.65"/>
+    <rect x="680" y="1780" width="520" height="150" rx="40" fill="#FFFFFF" opacity="0.4"/>
+  </g>
+  <g font-family="Consolas, monospace" font-weight="700" font-size="150" fill="#FFFFFF">
+    <text x="150" y="2180">&gt;_</text>
+  </g>
+
+  <text x="140" y="2440" font-family="Instrument Sans, sans-serif" font-weight="700" font-size="66" letter-spacing="20" fill="#FFFFFF">EBOOK</text>
+</svg>

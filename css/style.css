@@ -230,42 +230,22 @@ input:focus-visible,
   .waclarz .cover:nth-child(3) { transform: rotate(11deg) translateX(74px) translateY(10px); }
 }
 
-/* ---------------------------------------------------------------- Okładka (generowana w kodzie) */
+/* ---------------------------------------------------------------- Okładka ebooka (ilustracja WebP) */
 .cover {
-  container-type: inline-size;         /* jednostki cqw skalują tekst do szerokości okładki */
-  aspect-ratio: 3 / 4;
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 8;
+  object-fit: cover;
   border-radius: var(--promien-maly);
   border: 1px solid rgba(255,255,255,.12);
-  padding: 9cqw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-  background: #000;
-  color: #fff;
+  background: #161616;
 }
-.cover__autor {
-  font-family: var(--font-tekst);
-  font-weight: 600;
-  text-transform: lowercase;
-  letter-spacing: 0.02em;
-  font-size: 5.2cqw;
-  line-height: 1.2;
-  opacity: .85;
-}
-.cover__tytul {
-  font-family: var(--font-naglowek);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.02;
-  font-size: 13cqw;                    /* czytelne nawet w miniaturze 100 px */
-}
-.cover__pasek {
-  height: 4.5cqw;
-  width: 45%;
-  border-radius: 999px;
-  background: var(--akcent);
-  margin-top: 6cqw;
+/* Zastępcza okładka projektu (tylko w ?wip=1 dla niewypełnionych projektów) */
+.projekt-cover-ph {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  aspect-ratio: 5 / 8; border-radius: var(--promien-maly);
+  border: 1px dashed var(--ramka); background: var(--karta);
+  color: var(--tekst-2); padding: 16px; font-weight: 600;
 }
 
 /* ---------------------------------------------------------------- Siatki / karty */
@@ -306,10 +286,9 @@ input:focus-visible,
 .krok__tekst { color: var(--tekst); font-weight: 600; }
 
 /* ---------------------------------------------------------------- Ebooki */
-.ebook { display: flex; flex-direction: column; gap: 16px; }
-.ebook__cover { width: 100%; max-width: 140px; }
-/* Okładka ebooka: proporcja 5/8 w ograniczonym kontenerze (nigdy cała karta) */
-.ebook__cover .cover { aspect-ratio: 5 / 8; }
+/* Karta ebooka: grid — okładka (stała kolumna) obok tekstu, nigdy nakładanie */
+.ebook { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.ebook__cover { width: 100%; max-width: 180px; margin: 0 auto; }
 .ebook__tytul { font-size: 1.25rem; }
 .ebook__punkty { list-style: none; margin: 4px 0 0; padding: 0; }
 .ebook__punkty li { position: relative; padding-left: 24px; color: var(--tekst-2); margin-bottom: 8px; }
@@ -327,9 +306,9 @@ input:focus-visible,
 .badge--wkrotce { border-color: var(--akcent); color: var(--akcent); }
 
 @media (min-width: 620px) {
-  .ebook { flex-direction: row; align-items: flex-start; }
-  .ebook__cover { flex: 0 0 140px; width: 140px; }
-  .ebook__tresc { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .ebook { grid-template-columns: 180px 1fr; gap: 24px; align-items: start; }
+  .ebook__cover { max-width: 180px; margin: 0; }
+  .ebook__tresc { min-width: 0; display: flex; flex-direction: column; }
 }
 
 /* ---------------------------------------------------------------- Newsletter */
