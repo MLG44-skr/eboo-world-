@@ -28,15 +28,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
-  <!-- Przełącznik stylów: ładuje wybrany motyw jeszcze przed malowaniem (bez mignięcia) -->
+  <!-- Motyw: publicznie zawsze ciemny; wybór stylu tylko w trybie ?wip=1 -->
   <script>
   (function () {
-    var mapa = { a: "css/motion.css", b: "css/editorial.css", c: "css/light.css" };
-    var p = new URLSearchParams(location.search).get("styl");
-    var s = p || localStorage.getItem("bza-styl") || "a";
-    if (!mapa[s]) s = "a";
+    var q = new URLSearchParams(location.search);
+    var wip = q.get("wip") === "1";
+    var s = wip ? (q.get("styl") || localStorage.getItem("bza-styl") || "a") : "a";
+    var file = s === "b" ? "css/editorial.css" : (s === "c" ? "css/light.css" : "css/motion.css");
     document.documentElement.setAttribute("data-styl", s);
-    if (mapa[s]) document.write('<link rel="stylesheet" href="' + mapa[s] + '" id="theme-extra">');
+    if (wip) document.documentElement.setAttribute("data-wip-mode", "1");
+    document.write('<link rel="stylesheet" href="' + file + '" id="theme-extra">');
   })();
   </script>
 
@@ -47,21 +48,12 @@
     "@type": "Person",
     "name": "Marcel Barut",
     "url": "https://marzenia42-png.github.io/buduj-z-ai/",
-    "description": "18-latek, który buduje ebooki i aplikacje z AI.",
-    "sameAs": ["[LINK_INSTAGRAM]", "[LINK_TIKTOK]", "[LINK_YOUTUBE]"]
+    "description": "18-latek, który buduje ebooki i aplikacje z AI."
   }
   </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Przejdź do treści</a>
-
-  <!-- Przełącznik stylów (podgląd wariantów) -->
-  <div class="styl-switch" role="group" aria-label="Styl strony">
-    <span class="styl-switch__label">Styl:</span>
-    <button type="button" data-styl="a">Ciemny</button>
-    <button type="button" data-styl="b">Edytorski</button>
-    <button type="button" data-styl="c">Jasny</button>
-  </div>
 
   <!-- ====================== HEADER ====================== -->
   <header class="header">
@@ -175,18 +167,10 @@
           <p class="nadtytul" style="color:#000">Za darmo</p>
           <h2>Co tydzień 3 nowości AI, które naprawdę coś zmieniają</h2>
           <p>Plus checklista 10 promptów na start — dostajesz ją od razu po zapisie.</p>
-          <form id="newsletter-form" class="newsletter__form" novalidate>
-            <div class="pole">
-              <label for="nl-email">Twój e-mail</label>
-              <input type="email" id="nl-email" name="email" autocomplete="email" placeholder="ty@przyklad.pl" required />
-            </div>
-            <div class="zgoda">
-              <input type="checkbox" id="nl-zgoda" name="zgoda" required />
-              <label for="nl-zgoda">Zgadzam się na otrzymywanie newslettera i akceptuję <a href="polityka-prywatnosci.html">politykę prywatności</a>.</label>
-            </div>
-            <button type="submit" class="btn btn--ciemny">Zapisz mnie</button>
-            <p class="komunikat" id="nl-komunikat" role="status" aria-live="polite"></p>
-          </form>
+          <!-- Publicznie: komunikat. Formularz wstrzykuje JS wyłącznie po podaniu kluczy Supabase. -->
+          <div id="newsletter-slot">
+            <p class="newsletter__wkrotce">Zapisy ruszają wkrótce — wróć niebawem.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -194,8 +178,7 @@
     <!-- ====================== O MNIE ====================== -->
     <section id="omnie">
       <div class="kontener">
-        <div class="omnie__grid">
-          <div class="omnie__foto" data-wip>[TWOJE ZDJĘCIE]</div>
+        <div class="omnie__grid" id="omnie-grid">
           <div>
             <p class="nadtytul">O mnie</p>
             <h2>Cześć, jestem Marcel</h2>
@@ -216,25 +199,13 @@
           <p class="fragment__etykieta">Rozdział 1 — Zanim napiszesz pierwszy prompt</p>
           <h3>Zanim napiszesz pierwszy prompt</h3>
           <p>Większość ludzi otwiera AI i zaczyna pisać „zrób mi aplikację”. Potem dziwią się, że wychodzi coś, czego nie rozumieją. Zacznijmy inaczej — od jednego zdania, które opisuje, co ma się wydarzyć, gdy ktoś kliknie przycisk.</p>
-          <p data-wip>[DALSZY FRAGMENT ROZDZIAŁU 1 DO UZUPEŁNIENIA — wklej 1–2 akapity z prawdziwego ebooka.]</p>
+          <div id="wip-fragment"></div>
         </div>
       </div>
     </section>
 
-    <!-- ====================== OPINIE ====================== -->
-    <section id="opinie" data-wip>
-      <div class="kontener">
-        <div class="sekcja__head">
-          <p class="nadtytul">Co mówią czytelnicy</p>
-          <h2>Opinie</h2>
-        </div>
-        <div class="siatka siatka--3">
-          <div class="opinia">[Opinia czytelnika]</div>
-          <div class="opinia">[Opinia czytelnika]</div>
-          <div class="opinia">[Opinia czytelnika]</div>
-        </div>
-      </div>
-    </section>
+    <!-- ====================== OPINIE (tylko ?wip=1) ====================== -->
+    <div id="wip-opinie"></div>
 
     <!-- ====================== FAQ ====================== -->
     <section id="faq">
@@ -256,14 +227,7 @@
             <summary>Czy muszę umieć programować?</summary>
             <p>Nie. Wszystko jest tłumaczone od zera, krok po kroku, prostym językiem.</p>
           </details>
-          <details data-wip>
-            <summary>Jakie są metody płatności?</summary>
-            <p>[METODY PŁATNOŚCI DO UZUPEŁNIENIA — np. BLIK, karta, Przelewy24 przez sklep Payhip.]</p>
-          </details>
-          <details data-wip>
-            <summary>Czy mogę zwrócić ebook?</summary>
-            <p>[ZASADY ZWROTÓW DO UZUPEŁNIENIA — produkty cyfrowe; patrz Regulamin.]</p>
-          </details>
+          <div id="wip-faq"></div>
         </div>
       </div>
     </section>
@@ -274,10 +238,7 @@
   <footer class="footer">
     <div class="kontener footer__row">
       <small>© <span id="rok">2026</span> Marcel Barut</small>
-      <ul class="footer__links">
-        <li><a href="[LINK_INSTAGRAM]" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="[LINK_TIKTOK]" target="_blank" rel="noopener">TikTok</a></li>
-        <li><a href="[LINK_YOUTUBE]" target="_blank" rel="noopener">YouTube</a></li>
+      <ul class="footer__links" id="footer-links">
         <li><a href="regulamin.html">Regulamin</a></li>
         <li><a href="polityka-prywatnosci.html">Polityka prywatności</a></li>
       </ul>
@@ -286,5 +247,6 @@
 
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/wip.js"></script>
 </body>
 </html>

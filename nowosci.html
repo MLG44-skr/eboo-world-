@@ -18,24 +18,18 @@
   <link rel="stylesheet" href="css/style.css" />
   <script>
   (function () {
-    var mapa = { a: "css/motion.css", b: "css/editorial.css", c: "css/light.css" };
-    var p = new URLSearchParams(location.search).get("styl");
-    var s = p || localStorage.getItem("bza-styl") || "a";
-    if (!mapa[s]) s = "a";
+    var q = new URLSearchParams(location.search);
+    var wip = q.get("wip") === "1";
+    var s = wip ? (q.get("styl") || localStorage.getItem("bza-styl") || "a") : "a";
+    var file = s === "b" ? "css/editorial.css" : (s === "c" ? "css/light.css" : "css/motion.css");
     document.documentElement.setAttribute("data-styl", s);
-    if (mapa[s]) document.write('<link rel="stylesheet" href="' + mapa[s] + '" id="theme-extra">');
+    if (wip) document.documentElement.setAttribute("data-wip-mode", "1");
+    document.write('<link rel="stylesheet" href="' + file + '" id="theme-extra">');
   })();
   </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Przejdź do treści</a>
-
-  <div class="styl-switch" role="group" aria-label="Styl strony">
-    <span class="styl-switch__label">Styl:</span>
-    <button type="button" data-styl="a">Ciemny</button>
-    <button type="button" data-styl="b">Edytorski</button>
-    <button type="button" data-styl="c">Jasny</button>
-  </div>
 
   <header class="header">
     <div class="kontener header__row">
@@ -71,10 +65,7 @@
   <footer class="footer">
     <div class="kontener footer__row">
       <small>© <span id="rok">2026</span> Marcel Barut</small>
-      <ul class="footer__links">
-        <li><a href="[LINK_INSTAGRAM]" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="[LINK_TIKTOK]" target="_blank" rel="noopener">TikTok</a></li>
-        <li><a href="[LINK_YOUTUBE]" target="_blank" rel="noopener">YouTube</a></li>
+      <ul class="footer__links" id="footer-links">
         <li><a href="regulamin.html">Regulamin</a></li>
         <li><a href="polityka-prywatnosci.html">Polityka prywatności</a></li>
       </ul>
@@ -83,5 +74,6 @@
 
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/wip.js"></script>
 </body>
 </html>

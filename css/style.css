@@ -350,9 +350,8 @@ input:focus-visible,
 
 /* ---------------------------------------------------------------- O mnie */
 .omnie__grid { display: grid; gap: 28px; align-items: center; }
-@media (min-width: 760px) { .omnie__grid { grid-template-columns: 240px 1fr; } }
-/* Gdy zdjęcie ukryte (niegotowe) — tekst zajmuje całą szerokość */
-.omnie__grid:has(.omnie__foto[data-wip]) { grid-template-columns: 1fr; }
+/* 2 kolumny tylko gdy zdjęcie jest obecne (wstrzykiwane w ?wip=1) */
+@media (min-width: 760px) { .omnie__grid:has(.omnie__foto) { grid-template-columns: 240px 1fr; } }
 .omnie__foto {
   aspect-ratio: 1 / 1; border-radius: var(--promien); border: 1px dashed var(--ramka);
   background: var(--karta); display: flex; align-items: center; justify-content: center;

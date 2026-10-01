@@ -13,12 +13,13 @@
   <link rel="stylesheet" href="css/style.css" />
   <script>
   (function () {
-    var mapa = { a: "css/motion.css", b: "css/editorial.css", c: "css/light.css" };
-    var p = new URLSearchParams(location.search).get("styl");
-    var s = p || localStorage.getItem("bza-styl") || "a";
-    if (!mapa[s]) s = "a";
+    var q = new URLSearchParams(location.search);
+    var wip = q.get("wip") === "1";
+    var s = wip ? (q.get("styl") || localStorage.getItem("bza-styl") || "a") : "a";
+    var file = s === "b" ? "css/editorial.css" : (s === "c" ? "css/light.css" : "css/motion.css");
     document.documentElement.setAttribute("data-styl", s);
-    if (mapa[s]) document.write('<link rel="stylesheet" href="' + mapa[s] + '" id="theme-extra">');
+    if (wip) document.documentElement.setAttribute("data-wip-mode", "1");
+    document.write('<link rel="stylesheet" href="' + file + '" id="theme-extra">');
   })();
   </script>
 </head>
@@ -47,29 +48,8 @@
       <div class="kontener proza">
         <p class="nadtytul">Dokument</p>
         <h1>Regulamin</h1>
-        <p><strong>Uwaga:</strong> poniższy tekst to <span class="uzupelnij">szablon</span>. Dane w nawiasach uzupełnia właściciel / księgowa. Nie traktuj go jako gotowego dokumentu prawnego — wymaga weryfikacji.</p>
-
-        <h2>§1. Postanowienia ogólne</h2>
-        <p>Sprzedawcą produktów cyfrowych dostępnych na stronie jest <span class="uzupelnij">[NAZWA FIRMY / IMIĘ I NAZWISKO DO UZUPEŁNIENIA]</span>, <span class="uzupelnij">[ADRES DO UZUPEŁNIENIA]</span>, NIP <span class="uzupelnij">[NIP DO UZUPEŁNIENIA]</span>, REGON <span class="uzupelnij">[REGON DO UZUPEŁNIENIA]</span>, e-mail kontaktowy <span class="uzupelnij">[E-MAIL KONTAKTOWY DO UZUPEŁNIENIA]</span>.</p>
-
-        <h2>§2. Przedmiot sprzedaży</h2>
-        <p>Przedmiotem sprzedaży są treści cyfrowe (ebooki w formacie PDF) oraz ewentualnie dostęp do aplikacji. Sprzedaż i płatności obsługuje zewnętrzna platforma <span class="uzupelnij">Payhip</span> — zasady płatności i dostarczania określa również regulamin tej platformy.</p>
-
-        <h2>§3. Składanie zamówienia i płatność</h2>
-        <ul>
-          <li>Zakup odbywa się poprzez kliknięcie przycisku „Kup”, który przenosi do sklepu <span class="uzupelnij">Payhip</span>.</li>
-          <li>Dostępne metody płatności: <span class="uzupelnij">[METODY PŁATNOŚCI DO UZUPEŁNIENIA]</span>.</li>
-          <li>Po opłaceniu zamówienia plik PDF dostarczany jest na podany adres e-mail.</li>
-        </ul>
-
-        <h2>§4. Prawo odstąpienia od umowy</h2>
-        <p><span class="uzupelnij">[ZASADY ODSTĄPIENIA / ZWROTÓW DO UZUPEŁNIENIA.]</span> W przypadku treści cyfrowych prawo odstąpienia może być wyłączone, jeśli kupujący wyraził zgodę na rozpoczęcie dostarczania przed upływem terminu odstąpienia — dokładne zapisy ustala <span class="uzupelnij">[KSIĘGOWA / PRAWNIK]</span>.</p>
-
-        <h2>§5. Reklamacje</h2>
-        <p>Reklamacje można zgłaszać na adres <span class="uzupelnij">[E-MAIL REKLAMACJI DO UZUPEŁNIENIA]</span>. Czas rozpatrzenia: <span class="uzupelnij">[LICZBA DNI DO UZUPEŁNIENIA]</span> dni.</p>
-
-        <h2>§6. Postanowienia końcowe</h2>
-        <p>W sprawach nieuregulowanych stosuje się przepisy prawa polskiego. Regulamin obowiązuje od dnia <span class="uzupelnij">[DATA DO UZUPEŁNIENIA]</span>.</p>
+        <p class="hero__sub">Dokument jest w przygotowaniu — uzupełnimy go wkrótce.</p>
+        <div id="wip-legal" data-doc="regulamin"></div>
 
         <div class="na-srodku-btn mt-40">
           <a class="btn btn--obrys" href="index.html">← Wróć na stronę główną</a>
@@ -81,10 +61,7 @@
   <footer class="footer">
     <div class="kontener footer__row">
       <small>© <span id="rok">2026</span> Marcel Barut</small>
-      <ul class="footer__links">
-        <li><a href="[LINK_INSTAGRAM]" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="[LINK_TIKTOK]" target="_blank" rel="noopener">TikTok</a></li>
-        <li><a href="[LINK_YOUTUBE]" target="_blank" rel="noopener">YouTube</a></li>
+      <ul class="footer__links" id="footer-links">
         <li><a href="regulamin.html">Regulamin</a></li>
         <li><a href="polityka-prywatnosci.html">Polityka prywatności</a></li>
       </ul>
@@ -93,5 +70,6 @@
 
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/wip.js"></script>
 </body>
 </html>

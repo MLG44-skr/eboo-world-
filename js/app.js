@@ -193,23 +193,32 @@
   function emailOk(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
 
   function initNewsletter() {
-    var form = qs("#newsletter-form");
-    if (!form) return;
+    var slot = qs("#newsletter-slot");
+    if (!slot) return;
 
     var cfg = window.BUDUJ_CONFIG || {};
-    var skonfig = cfg.SUPABASE_URL && cfg.SUPABASE_URL.indexOf("[") !== 0 &&
-                  cfg.SUPABASE_ANON_KEY && cfg.SUPABASE_ANON_KEY.indexOf("[") !== 0;
+    var skonfig = cfg.SUPABASE_URL && !isPH(cfg.SUPABASE_URL) &&
+                  cfg.SUPABASE_ANON_KEY && !isPH(cfg.SUPABASE_ANON_KEY);
 
-    // Dopóki brak własnego projektu Supabase — chowamy formularz, pokazujemy komunikat.
-    if (!skonfig) {
-      form.style.display = "none";
-      var info = document.createElement("p");
-      info.className = "newsletter__wkrotce";
-      info.textContent = "Zapisy ruszają wkrótce — wróć niebawem.";
-      form.parentNode.insertBefore(info, form);
-      return;
-    }
+    // Brak kluczy -> zostaje statyczny komunikat "Zapisy ruszają wkrótce".
+    if (!skonfig) return;
 
+    // Klucze są -> budujemy formularz (nie trzymamy go w publicznym HTML).
+    slot.innerHTML =
+      '<form id="newsletter-form" class="newsletter__form" novalidate>' +
+        '<div class="pole">' +
+          '<label for="nl-email">Twój e-mail</label>' +
+          '<input type="email" id="nl-email" name="email" autocomplete="email" placeholder="ty@przyklad.pl" required />' +
+        '</div>' +
+        '<div class="zgoda">' +
+          '<input type="checkbox" id="nl-zgoda" name="zgoda" required />' +
+          '<label for="nl-zgoda">Zgadzam się na otrzymywanie newslettera i akceptuję <a href="polityka-prywatnosci.html">politykę prywatności</a>.</label>' +
+        '</div>' +
+        '<button type="submit" class="btn btn--ciemny">Zapisz mnie</button>' +
+        '<p class="komunikat" id="nl-komunikat" role="status" aria-live="polite"></p>' +
+      '</form>';
+
+    var form = qs("#newsletter-form", slot);
     var email = qs("#nl-email", form);
     var zgoda = qs("#nl-zgoda", form);
     var komunikat = qs("#nl-komunikat", form);
@@ -284,25 +293,11 @@
     });
   }
 
-  /* ---------- Ukrywanie elementów niegotowych (WIP / [NAWIASY]) ---------- */
+  /* ---------- Tryb WIP (podgląd niegotowych treści) ---------- */
   function initWip() {
-    // Linki-placeholdery (href zaczyna się od "[") — chowamy całą pozycję listy.
-    var ph = document.querySelectorAll('a[href^="["]');
-    Array.prototype.forEach.call(ph, function (a) {
-      var li = a.closest ? a.closest("li") : null;
-      (li || a).setAttribute("data-wip", "");
-    });
-
     var cfg = window.BUDUJ_CONFIG || {};
-    var pokaz = cfg.POKAZ_WIP === true ||
+    WIP_POKAZ = cfg.POKAZ_WIP === true ||
                 new URLSearchParams(location.search).get("wip") === "1";
-    WIP_POKAZ = pokaz;
-    if (pokaz) {
-      // Tryb podglądu — odsłaniamy wszystko oznaczone jako niegotowe.
-      Array.prototype.forEach.call(document.querySelectorAll("[data-wip]"), function (el) {
-        el.removeAttribute("data-wip");
-      });
-    }
   }
 
   /* ---------- Przełącznik stylów ---------- */
@@ -316,7 +311,7 @@
       b.addEventListener("click", function () {
         var s = b.getAttribute("data-styl");
         try { localStorage.setItem("bza-styl", s); } catch (e) {}
-        location.search = "?styl=" + s;   // przeładowanie z wybranym stylem (bez mignięcia)
+        location.search = "?styl=" + s + "&wip=1";   // zostań w trybie podglądu
       });
     });
   }
