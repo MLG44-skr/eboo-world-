@@ -21,6 +21,7 @@ Jak dodać nową nowość AI, ebook lub projekt oraz jak działa wersjonowanie a
 - [ ] **Ceny + linki Payhip** dla 4 ebooków (w `data/ebooks.json`, pola `cena` i `link_payhip`).
 - [ ] **2–3 zrzuty ekranu HABLA** (bez danych osobowych) — wtedy dodamy je do sekcji projektów.
 - [ ] **Decyzja o newsletterze** (np. MailerLite) — wtedy wpinamy działające zapisy.
+- [ ] **Założyć darmowe konto GoatCounter** (najlepiej na marcelbarut44@gmail.com) i podać **URL licznika** (np. `https://budujzai.goatcounter.com/count`) — wtedy włączymy statystyki bez cookies.
 - [ ] (opcjonalnie) **Własna domena** — podmienimy adresy canonical/OG/`SITE_URL`.
 
 ## Decyzje

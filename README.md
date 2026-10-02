@@ -174,13 +174,23 @@ Jak odsłonić:
 odśwież PNG (otwórz SVG w przeglądarce i zrób zrzut 1200×630, albo w dowolnym edytorze). Odwołania
 w `<head>` wskazują na `og-image.png`.
 
-## Na później (TODO — nie zrobione jeszcze)
+## Prerender (SEO) — `node build.js`
 
-- **Prerender nowości i ebooków do HTML przy buildzie (SEO).** Teraz nowości/ebooki/projekty
-  wstrzykuje JavaScript z `data/*.json` — Google może nie widzieć tej treści. Docelowo: prosty
-  skrypt budujący (np. Node/GitHub Actions), który przy każdym `push` wczytuje `data/*.json`
-  i **wkleja gotowy HTML** kart do stron (lub generuje statyczne podstrony). Wtedy treść jest
-  w źródle strony, a nie dociągana skryptem. Do rozważenia: GitHub Actions workflow + szablony.
+Nowości, ebooki i projekty są **wklejane jako gotowy HTML** do `index.html` i `nowosci.html`
+(między znacznikami `<!--PR:klucz:start/end-->`), żeby widział je Google — nie tylko JavaScript.
+Po KAŻDEJ zmianie w `data/*.json` (albo po bumpie wersji) uruchom:
+
+```
+cd E:\Dario\projekty\buduj-z-ai
+node build.js
+```
+
+Skrypt nie ma zależności (czysty Node), replikuje publiczny render z `js/app.js` (pomija
+placeholdery `[ ]`). Kolejność przy zmianie CSS/JS: podnieś `?v=` + `ASSET_V`, potem `node build.js`, potem commit.
+
+### Na później (opcjonalnie)
+- GitHub Action, który sam uruchamia `node build.js` przy każdym pushu zmian w `data/`.
+- Statystyki bez cookies: GoatCounter (ustaw `ANALYTICS_GOATCOUNTER` w `js/config.js`).
 
 ---
 
