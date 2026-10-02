@@ -19,5 +19,10 @@ window.BUDUJ_CONFIG = {
   SITE_URL: "https://marzenia42-png.github.io/buduj-z-ai",
   // Pokaż na stronie elementy jeszcze niegotowe (z [NAWIASAMI])?
   // false = ukryte na live. true (lub ?wip=1 w adresie) = podgląd wszystkiego.
-  POKAZ_WIP: false
+  POKAZ_WIP: false,
+  // Adres kontaktowy (wyświetlany w regulaminie i polityce prywatności)
+  CONTACT_EMAIL: "marcelbarut44@gmail.com",
+  // Analityka bez cookies (GoatCounter). Wklej pełny URL licznika, np.
+  // "https://budujzai.goatcounter.com/count" — puste = wyłączone (bez skryptu, bez banera).
+  ANALYTICS_GOATCOUNTER: ""
 };

@@ -6,7 +6,7 @@
 
   var AUTOR = "marcel barut"; // na okładkach zawsze małymi literami
   var WIP_POKAZ = false;      // tryb podglądu niegotowych treści (?wip=1 / POKAZ_WIP)
-  var ASSET_V = "10";         // wersja assetów (cache-busting); bump przy każdym deployu
+  var ASSET_V = "11";         // wersja assetów (cache-busting); bump przy każdym deployu
 
   // Czy wartość to placeholder "[...DO UZUPEŁNIENIA]"?
   function isPH(v) { return typeof v === "string" && v.trim().charAt(0) === "["; }
@@ -337,6 +337,30 @@
     } else { run(); }
   }
 
+  /* ---------- Adres kontaktowy (z configu, jedno źródło) ---------- */
+  function initContact() {
+    var cfg = window.BUDUJ_CONFIG || {};
+    var mail = cfg.CONTACT_EMAIL;
+    if (!mail || isPH(mail)) return;
+    var els = document.querySelectorAll("[data-contact-email]");
+    Array.prototype.forEach.call(els, function (a) {
+      a.textContent = mail;
+      if (a.tagName === "A") a.setAttribute("href", "mailto:" + mail);
+    });
+  }
+
+  /* ---------- Analityka bez cookies (GoatCounter) — tylko gdy ustawiona ---------- */
+  function initAnalytics() {
+    var cfg = window.BUDUJ_CONFIG || {};
+    var code = cfg.ANALYTICS_GOATCOUNTER;
+    if (!code || isPH(code)) return;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "//gc.zgo.at/count.js";
+    s.setAttribute("data-goatcounter", code);
+    document.body.appendChild(s);
+  }
+
   /* ---------- Rok w stopce ---------- */
   function initRok() {
     var el = qs("#rok");
@@ -353,6 +377,8 @@
     initNav();
     initSwitch();
     initWip();
+    initContact();
+    initAnalytics();
     initRok();
     initNewsletter();
     initAgentDemo();

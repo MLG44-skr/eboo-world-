@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=10" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
   <script>
   (function () {
     var q = new URLSearchParams(location.search);
@@ -19,7 +19,7 @@
     var file = s === "b" ? "css/editorial.css" : (s === "c" ? "css/light.css" : "css/motion.css");
     document.documentElement.setAttribute("data-styl", s);
     if (wip) document.documentElement.setAttribute("data-wip-mode", "1");
-    document.write('<link rel="stylesheet" href="' + file + '?v=10" id="theme-extra">');
+    document.write('<link rel="stylesheet" href="' + file + '?v=11" id="theme-extra">');
   })();
   </script>
 </head>
@@ -48,33 +48,31 @@
       <div class="kontener proza">
         <p class="nadtytul">Dokument</p>
         <h1>Polityka prywatności</h1>
-        <p class="hero__sub">To szablon polityki prywatności. Pola podświetlone na żółto uzupełnia właściciel / księgowa przed publikacją — nie wpisujemy zmyślonych danych.</p>
-
         <h2>1. Administrator danych</h2>
-        <p>Administratorem danych osobowych jest <span class="uzupelnij">do uzupełnienia: nazwa firmy lub imię i nazwisko</span>, <span class="uzupelnij">do uzupełnienia: adres</span>, kontakt: <span class="uzupelnij">do uzupełnienia: e-mail</span>.</p>
+        <p>Administratorem danych osobowych jest Marcel Barut (osoba prywatna). Kontakt w sprawach danych: <a data-contact-email href="#">adres e-mail serwisu</a>.</p>
 
         <h2>2. Jakie dane zbieramy</h2>
         <ul>
           <li><strong>Newsletter:</strong> adres e-mail oraz data i fakt wyrażenia zgody.</li>
-          <li><strong>Zakup ebooka:</strong> dane podane w sklepie Payhip (przetwarza je ta platforma; szczegóły: <span class="uzupelnij">do uzupełnienia: do weryfikacji z Payhip</span>).</li>
+          <li><strong>Zakup ebooka:</strong> dane podane w sklepie Payhip, który przetwarza je jako odrębny administrator.</li>
         </ul>
 
         <h2>3. Cel i podstawa przetwarzania</h2>
-        <p>Dane z newslettera przetwarzamy na podstawie zgody (art. 6 ust. 1 lit. a RODO) w celu wysyłki wiadomości. Zgodę można wycofać w każdej chwili, klikając „wypisz” w wiadomości lub pisząc na <span class="uzupelnij">do uzupełnienia: e-mail</span>.</p>
+        <p>Dane z newslettera przetwarzamy na podstawie zgody (art. 6 ust. 1 lit. a RODO) w celu wysyłki wiadomości. Zgodę można wycofać w każdej chwili, klikając „wypisz” w wiadomości lub pisząc na <a data-contact-email href="#">adres e-mail serwisu</a>.</p>
 
         <h2>4. Komu powierzamy dane</h2>
-        <p>Dane mogą przetwarzać dostawcy usług: <span class="uzupelnij">do uzupełnienia: dostawca newslettera / bazy</span>, <span class="uzupelnij">do uzupełnienia: dostawca płatności (Payhip)</span>, <span class="uzupelnij">do uzupełnienia: hosting</span>.</p>
+        <p>Dane mogą przetwarzać dostawcy usług: hostingu strony, newslettera oraz płatności (Payhip). Każdy z nich przetwarza dane wyłącznie w zakresie niezbędnym do świadczenia usługi.</p>
 
         <h2>5. Jak długo przechowujemy dane</h2>
-        <p>Do czasu wycofania zgody lub <span class="uzupelnij">do uzupełnienia: okres przechowywania</span>.</p>
+        <p>Dane z newslettera przechowujemy do czasu wycofania zgody.</p>
 
         <h2>6. Twoje prawa</h2>
         <p>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz wniesienia skargi do Prezesa UODO.</p>
 
         <h2>7. Pliki cookies</h2>
-        <p><span class="uzupelnij">do uzupełnienia: informacja o cookies — ta strona domyślnie nie używa plików cookies śledzących; jeśli dodasz analitykę, opisz to tutaj</span>.</p>
+        <p>Strona nie używa plików cookies śledzących ani reklamowych. Statystyki odwiedzin (jeśli włączone) zbieramy w sposób anonimowy, bez cookies i bez profilowania.</p>
 
-        <p>Data ostatniej aktualizacji: <span class="uzupelnij">do uzupełnienia: data</span>.</p>
+        <p>Polityka obowiązuje od dnia publikacji.</p>
 
         <div class="na-srodku-btn mt-40">
           <a class="btn btn--obrys" href="index.html">← Wróć na stronę główną</a>
@@ -93,8 +91,8 @@
     </div>
   </footer>
 
-  <script src="js/config.js?v=10"></script>
-  <script src="js/app.js?v=10"></script>
-  <script src="js/wip.js?v=10"></script>
+  <script src="js/config.js?v=11"></script>
+  <script src="js/app.js?v=11"></script>
+  <script src="js/wip.js?v=11"></script>
 </body>
 </html>

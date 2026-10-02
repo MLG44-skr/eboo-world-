@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=10" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
   <script>
   (function () {
     var q = new URLSearchParams(location.search);
@@ -19,7 +19,7 @@
     var file = s === "b" ? "css/editorial.css" : (s === "c" ? "css/light.css" : "css/motion.css");
     document.documentElement.setAttribute("data-styl", s);
     if (wip) document.documentElement.setAttribute("data-wip-mode", "1");
-    document.write('<link rel="stylesheet" href="' + file + '?v=10" id="theme-extra">');
+    document.write('<link rel="stylesheet" href="' + file + '?v=11" id="theme-extra">');
   })();
   </script>
 </head>
@@ -48,10 +48,8 @@
       <div class="kontener proza">
         <p class="nadtytul">Dokument</p>
         <h1>Regulamin</h1>
-        <p class="hero__sub">To szablon regulaminu. Pola podświetlone na żółto uzupełnia właściciel / księgowa przed uruchomieniem sprzedaży — nie wpisujemy zmyślonych danych firmy.</p>
-
         <h2>§1. Postanowienia ogólne</h2>
-        <p>Sprzedawcą produktów cyfrowych dostępnych na stronie jest <span class="uzupelnij">do uzupełnienia: nazwa firmy lub imię i nazwisko</span>, <span class="uzupelnij">do uzupełnienia: adres</span>, NIP <span class="uzupelnij">do uzupełnienia: NIP</span>, REGON <span class="uzupelnij">do uzupełnienia: REGON</span>, e-mail kontaktowy <span class="uzupelnij">do uzupełnienia: e-mail</span>.</p>
+        <p>Sprzedawcą produktów cyfrowych dostępnych na stronie jest Marcel Barut (osoba prywatna). Pełne dane rejestrowe udostępniamy na żądanie. Kontakt: <a data-contact-email href="#">adres e-mail serwisu</a>.</p>
 
         <h2>§2. Przedmiot sprzedaży</h2>
         <p>Przedmiotem sprzedaży są treści cyfrowe (ebooki w formacie PDF) oraz ewentualnie dostęp do aplikacji. Sprzedaż i płatności obsługuje zewnętrzna platforma Payhip — jej regulamin również określa zasady płatności i dostarczania.</p>
@@ -59,18 +57,18 @@
         <h2>§3. Składanie zamówienia i płatność</h2>
         <ul>
           <li>Zakup odbywa się przez kliknięcie przycisku „Kup”, który przenosi do sklepu Payhip.</li>
-          <li>Dostępne metody płatności: <span class="uzupelnij">do uzupełnienia: metody płatności (np. BLIK, karta, Przelewy24)</span>.</li>
-          <li>Po opłaceniu zamówienia plik PDF jest dostarczany na podany adres e-mail.</li>
+          <li>Dostępne metody płatności zależą od sklepu Payhip (m.in. karta płatnicza, BLIK, szybkie przelewy).</li>
+          <li>Po opłaceniu zamówienia plik PDF jest dostarczany na adres e-mail podany podczas zakupu.</li>
         </ul>
 
         <h2>§4. Prawo odstąpienia od umowy</h2>
-        <p><span class="uzupelnij">do uzupełnienia: zasady odstąpienia i zwrotów</span>. W przypadku treści cyfrowych prawo odstąpienia może być wyłączone, jeśli kupujący wyraził zgodę na rozpoczęcie dostarczania przed upływem terminu odstąpienia — dokładne zapisy ustala <span class="uzupelnij">do uzupełnienia: księgowa / prawnik</span>.</p>
+        <p>Zgodnie z przepisami o prawach konsumenta, przy treściach cyfrowych prawo odstąpienia może być wyłączone, jeśli kupujący wyraził zgodę na rozpoczęcie pobierania przed upływem 14-dniowego terminu odstąpienia i został o tym poinformowany.</p>
 
         <h2>§5. Reklamacje</h2>
-        <p>Reklamacje można zgłaszać na adres <span class="uzupelnij">do uzupełnienia: e-mail reklamacji</span>. Czas rozpatrzenia: <span class="uzupelnij">do uzupełnienia: liczba dni</span> dni.</p>
+        <p>Reklamacje można zgłaszać na adres: <a data-contact-email href="#">adres e-mail serwisu</a>. Reklamacje rozpatrujemy w terminie do 14 dni od zgłoszenia.</p>
 
         <h2>§6. Postanowienia końcowe</h2>
-        <p>W sprawach nieuregulowanych stosuje się przepisy prawa polskiego. Regulamin obowiązuje od dnia <span class="uzupelnij">do uzupełnienia: data</span>.</p>
+        <p>W sprawach nieuregulowanych stosuje się przepisy prawa polskiego. Regulamin obowiązuje od dnia publikacji.</p>
 
         <div class="na-srodku-btn mt-40">
           <a class="btn btn--obrys" href="index.html">← Wróć na stronę główną</a>
@@ -89,8 +87,8 @@
     </div>
   </footer>
 
-  <script src="js/config.js?v=10"></script>
-  <script src="js/app.js?v=10"></script>
-  <script src="js/wip.js?v=10"></script>
+  <script src="js/config.js?v=11"></script>
+  <script src="js/app.js?v=11"></script>
+  <script src="js/wip.js?v=11"></script>
 </body>
 </html>
