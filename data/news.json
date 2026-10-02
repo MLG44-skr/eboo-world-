@@ -19,5 +19,12 @@
     "tytul": "Aplikacje głosowe na Gemini 3.8 Live — rozmowa w ponad 97 językach",
     "opis": "Google udostępnił modele audio do budowania aplikacji, które słuchają i odpowiadają głosem. Dla Ciebie: gotowa cegiełka, z której sam zbudujesz np. głosowego trenera do nauki języka.",
     "link_zrodla": "https://blog.google/innovation-and-ai/technology/developers-tools/build-real-time-voice-applications-gemini-audio/"
+  },
+  {
+    "tydzien": "Tydzień 8–14 czerwca 2026",
+    "data": "9 czerwca 2026",
+    "tytul": "Anthropic: Claude Fable 5 — najmocniejszy dotąd model do kodowania",
+    "opis": "Anthropic pokazał Claude Fable 5, swój najbardziej zaawansowany model do programowania, pracy z wiedzą i badań. Dla Ciebie: coraz lepszy pomocnik do budowania — rzeczy trudne rok temu dziś zrobisz z AI szybciej.",
+    "link_zrodla": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
   }
 ]

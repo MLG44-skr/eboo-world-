@@ -6,7 +6,7 @@
 
   var AUTOR = "marcel barut"; // na okładkach zawsze małymi literami
   var WIP_POKAZ = false;      // tryb podglądu niegotowych treści (?wip=1 / POKAZ_WIP)
-  var ASSET_V = "9";          // wersja assetów (cache-busting); bump przy każdym deployu
+  var ASSET_V = "10";         // wersja assetów (cache-busting); bump przy każdym deployu
 
   // Czy wartość to placeholder "[...DO UZUPEŁNIENIA]"?
   function isPH(v) { return typeof v === "string" && v.trim().charAt(0) === "["; }
@@ -147,14 +147,9 @@
       ? '<a class="btn btn--akcent btn--maly" href="' + h(p.link) + '" target="_blank" rel="noopener">' + h(p.link_label || "Zobacz") + "</a>"
       : '<span class="btn btn--obrys btn--maly btn--wylaczony">' + h(p.link_label || "Wkrótce") + "</span>";
 
-    // Dla pierwszego projektu (HABLA) renderujemy makietę telefonu w CSS.
-    var media = i === 0
-      ? '<div class="projekt__media">' + telefonHTML() + "</div>"
-      : '<div class="projekt__media">' + coverPlaceholderHTML(p) + "</div>";
-
+    // Bez makiety/zrzutów — czekamy na prawdziwe zrzuty HABLA (żeby nie sugerować funkcji, których apka nie ma).
     return (
-      '<article class="projekt' + (i % 2 ? " projekt--odwrot" : "") + '">' +
-        media +
+      '<article class="projekt projekt--tekst">' +
         "<div>" +
           '<span class="nadtytul">' + h(p.typ) + "</span>" +
           '<h3 class="projekt__tytul">' + h(clean(p.tytul)) + "</h3>" +
@@ -164,26 +159,6 @@
         "</div>" +
       "</article>"
     );
-  }
-
-  function telefonHTML() {
-    return (
-      '<div class="telefon" role="img" aria-label="Makieta aplikacji HABLA do nauki hiszpańskiego">' +
-        '<div class="telefon__ekran">' +
-          '<div class="telefon__top"><span>HABLA</span><span class="telefon__xp">240 XP</span></div>' +
-          '<div class="telefon__awatar">L</div>' +
-          '<div class="telefon__linia"></div>' +
-          '<div class="telefon__linia telefon__linia--k"></div>' +
-          '<div class="telefon__pasek"><span></span></div>' +
-          '<div class="telefon__btn">Ucz się dalej</div>' +
-        "</div>" +
-      "</div>"
-    );
-  }
-
-  function coverPlaceholderHTML(p) {
-    return '<div class="projekt-cover-ph" aria-hidden="true"><span>' +
-           h(clean(p.tytul) || "Projekt") + "</span></div>";
   }
 
   function renderProjekty(projekty) {
@@ -323,6 +298,45 @@
     });
   }
 
+  /* ---------- Symulacja: agent, który rozmawia ---------- */
+  function initAgentDemo() {
+    var body = qs("#agent-body"); if (!body) return;
+    var textEl = qs("#agent-text"), caret = qs("#agent-caret"), typing = qs("#agent-typing");
+    var steps = document.querySelectorAll("#agent-steps .step");
+    var reply = "Jasne. Pierwszy ekran apki do nauki:\n• duży licznik serii dni (motywuje),\n• przycisk „Zacznij powtórkę”,\n• 3 talie fiszek do wyboru,\n• pasek postępu dziennego.\nZaczynamy od ekranu startowego?";
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var timers = [];
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function setSteps(on) { for (var i = 0; i < steps.length; i++) steps[i].classList.toggle("active", on); }
+    function showFinal() { setSteps(true); if (typing) typing.style.display = "none"; if (caret) caret.hidden = true; textEl.textContent = reply; }
+    if (reduce) { showFinal(); return; }
+    function type(i) {
+      if (i <= reply.length) { textEl.textContent = reply.slice(0, i); timers.push(setTimeout(function () { type(i + 1); }, 24)); }
+      else { if (caret) caret.hidden = true; timers.push(setTimeout(run, 5000)); }
+    }
+    function run() {
+      clearAll();
+      textEl.textContent = ""; if (caret) caret.hidden = true; if (typing) typing.style.display = "";
+      setSteps(false);
+      timers.push(setTimeout(function () { if (steps[0]) steps[0].classList.add("active"); }, 400));
+      timers.push(setTimeout(function () { if (steps[1]) steps[1].classList.add("active"); }, 1200));
+      timers.push(setTimeout(function () { if (steps[2]) steps[2].classList.add("active"); }, 2000));
+      timers.push(setTimeout(function () {
+        if (steps[3]) steps[3].classList.add("active");
+        if (typing) typing.style.display = "none";
+        if (caret) caret.hidden = false;
+        type(0);
+      }, 2800));
+    }
+    // Start dopiero, gdy sekcja wejdzie w pole widzenia (oszczędza baterię na telefonie).
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { run(); io.disconnect(); } });
+      }, { threshold: 0.3 });
+      io.observe(body);
+    } else { run(); }
+  }
+
   /* ---------- Rok w stopce ---------- */
   function initRok() {
     var el = qs("#rok");
@@ -341,6 +355,7 @@
     initWip();
     initRok();
     initNewsletter();
+    initAgentDemo();
 
     if (qs("#hero-waclarz") || qs("#ebooki-lista")) {
       get(baza() + "ebooks.json").then(function (ebooki) {

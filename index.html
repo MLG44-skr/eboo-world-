@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=9" />
+  <link rel="stylesheet" href="css/style.css?v=10" />
   <!-- Motyw: publicznie zawsze ciemny; wybór stylu tylko w trybie ?wip=1 -->
   <script>
   (function () {
@@ -37,7 +37,7 @@
     var file = s === "b" ? "css/editorial.css" : (s === "c" ? "css/light.css" : "css/motion.css");
     document.documentElement.setAttribute("data-styl", s);
     if (wip) document.documentElement.setAttribute("data-wip-mode", "1");
-    document.write('<link rel="stylesheet" href="' + file + '?v=9" id="theme-extra">');
+    document.write('<link rel="stylesheet" href="' + file + '?v=10" id="theme-extra">');
   })();
   </script>
 
@@ -105,6 +105,38 @@
       </div>
     </div>
 
+    <!-- ====================== ZOBACZ AI W AKCJI (symulacja agenta) ====================== -->
+    <section id="demo">
+      <div class="kontener">
+        <div class="sekcja__head">
+          <p class="nadtytul">Symulacja · zasada działania</p>
+          <h2>Zobacz AI w akcji</h2>
+          <p>To uproszczona <strong>symulacja</strong> (nie prawdziwe AI na żywo) — pokazuje, jak „agent” bierze jedno polecenie, robi kilka kroków i oddaje gotowy wynik.</p>
+        </div>
+        <div class="demo-grid">
+          <div class="agent-chat">
+            <div class="agent-chat__top">
+              <span class="agent-chat__dot"></span> Agent Marcela
+              <span class="badge agent-chat__badge">Symulacja</span>
+            </div>
+            <div class="agent-chat__body" id="agent-body">
+              <div class="msg msg--user">Rozpisz pierwszy ekran apki do nauki języka.</div>
+              <div class="msg msg--bot">
+                <span class="typing" id="agent-typing" aria-hidden="true"><i></i><i></i><i></i></span><span id="agent-text"></span><span class="caret" id="agent-caret" hidden></span>
+              </div>
+            </div>
+          </div>
+          <ol class="agent-steps" id="agent-steps" aria-label="Kroki, które wykonuje agent w symulacji">
+            <li class="step">Czyta polecenie</li>
+            <li class="step">Szuka wzorców z udanych apek</li>
+            <li class="step">Układa plan ekranu</li>
+            <li class="step">Pisze gotową odpowiedź</li>
+          </ol>
+        </div>
+        <p class="demo-note">Symulacja na potrzeby pokazu — odtwarzana z gotowego scenariusza, bez połączenia z siecią. Prawdziwego agenta budujesz krok po kroku w ebooku „Agenci AI dla początkujących”.</p>
+      </div>
+    </section>
+
     <!-- ====================== NOWOŚCI AI ====================== -->
     <section id="nowosci">
       <div class="kontener">
@@ -171,7 +203,7 @@
           <div id="newsletter-slot">
             <p class="newsletter__wkrotce">Zapisy ruszają wkrótce — wróć niebawem.</p>
           </div>
-          <p class="newsletter__pobierz">Nie chcesz czekać? <a href="pliki/checklista-10-promptow.pdf?v=9" download>Pobierz checklistę 10 promptów (PDF)</a>.</p>
+          <p class="newsletter__pobierz">Nie chcesz czekać? <a href="pliki/checklista-10-promptow.pdf?v=10" download>Pobierz checklistę 10 promptów (PDF)</a>.</p>
         </div>
       </div>
     </section>
@@ -246,8 +278,8 @@
     </div>
   </footer>
 
-  <script src="js/config.js?v=9"></script>
-  <script src="js/app.js?v=9"></script>
-  <script src="js/wip.js?v=9"></script>
+  <script src="js/config.js?v=10"></script>
+  <script src="js/app.js?v=10"></script>
+  <script src="js/wip.js?v=10"></script>
 </body>
 </html>

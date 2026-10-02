@@ -421,6 +421,9 @@ input:focus-visible,
   padding: 24px; margin-bottom: 20px;
 }
 @media (min-width: 760px) { .projekt { grid-template-columns: 220px 1fr; } .projekt--odwrot { grid-template-columns: 1fr 220px; } .projekt--odwrot .projekt__media { order: 2; } }
+/* Projekt bez makiety/zrzutów — sama treść na pełną szerokość */
+.projekt--tekst, .projekt--tekst > * { grid-template-columns: 1fr; }
+.projekt--tekst { display: block; }
 .projekt__tytul { font-size: 1.4rem; margin-bottom: 4px; }
 .projekt__meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 12px; }
 .projekt__akcje { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
@@ -445,6 +448,35 @@ input:focus-visible,
 .telefon__pasek { height: 10px; border-radius: 999px; background: #000; border: 1px solid var(--ramka); overflow: hidden; }
 .telefon__pasek span { display: block; height: 100%; width: 62%; background: var(--akcent); }
 .telefon__btn { margin-top: auto; text-align: center; background: var(--akcent); color: #000; font-weight: 800; border-radius: 999px; padding: 8px; font-size: .8rem; }
+
+/* ---------------------------------------------------------------- Zobacz AI w akcji (symulacja) */
+.demo-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.demo-grid > * { min-width: 0; }
+@media (min-width: 820px) { .demo-grid { grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: start; } }
+.agent-chat { background: var(--karta); border: 1px solid var(--ramka); border-radius: var(--promien); overflow: hidden; }
+.agent-chat__top { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--ramka); font-weight: 700; }
+.agent-chat__badge { margin-left: auto; }
+.agent-chat__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--akcent); animation: bza-dot 1.8s infinite; }
+@keyframes bza-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(232,255,58,.5); } 50% { box-shadow: 0 0 0 7px rgba(232,255,58,0); } }
+.agent-chat__body { padding: 18px; display: flex; flex-direction: column; gap: 12px; min-height: 300px; }
+.msg { max-width: 88%; padding: 12px 16px; border-radius: 14px; line-height: 1.5; }
+.msg--user { align-self: flex-end; background: #23231a; border: 1px solid var(--ramka); color: var(--tekst); border-bottom-right-radius: 4px; }
+.msg--bot { align-self: flex-start; background: #101010; border: 1px solid var(--ramka); color: var(--tekst); border-bottom-left-radius: 4px; white-space: pre-line; min-width: 52px; }
+.typing i { display: inline-block; width: 8px; height: 8px; margin: 0 2px; border-radius: 50%; background: var(--tekst-2); animation: bza-typing 1s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; }
+.typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes bza-typing { 0%,60%,100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+.caret { display: inline-block; width: 9px; height: 1.05em; background: var(--akcent); margin-left: 2px; vertical-align: text-bottom; animation: bza-caret .9s step-end infinite; }
+@keyframes bza-caret { 50% { opacity: 0; } }
+.agent-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.agent-steps .step { position: relative; padding: 12px 16px 12px 46px; border: 1px solid var(--ramka); border-radius: 12px; background: var(--karta); color: var(--tekst-2); transition: border-color .25s, color .25s; }
+.agent-steps .step::before { content: ""; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ramka); transition: all .25s; }
+.agent-steps .step.active { color: var(--tekst); border-color: var(--akcent); }
+.agent-steps .step.active::before { background: var(--akcent); border-color: var(--akcent); }
+.demo-note { margin-top: 18px; font-size: .9rem; color: var(--tekst-2); }
+@media (prefers-reduced-motion: reduce) {
+  .agent-chat__dot, .typing i, .caret { animation: none; }
+}
 
 /* ---------------------------------------------------------------- Pomocnicze */
 .srodek { text-align: center; }
