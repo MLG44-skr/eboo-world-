@@ -3,8 +3,8 @@
 Statyczna strona (HTML + CSS + jeden plik JS, bez frameworków). Mobile-first, ciemny motyw,
 akcent limonkowy. Newsletter zapisuje e-maile do bazy Supabase. Sprzedaż przez zewnętrzny sklep Payhip.
 
-- **Live:** https://marzenia42-png.github.io/buduj-z-ai/
-- **Repo:** https://github.com/marzenia42-png/buduj-z-ai
+- **Live:** https://mlg44-skr.github.io/eboo-world-/
+- **Repo:** https://github.com/MLG44-skr/eboo-world-
 - Każdy `git push` do gałęzi `main` automatycznie odświeża stronę na GitHub Pages (~1 min).
 
 > **Elementy niegotowe są ukryte na live** (patrz sekcja „Flaga WIP"). Odsłaniają się
@@ -163,7 +163,7 @@ pytania FAQ o płatności/zwroty) są **ukryte na live**. Mechanizm:
 - Linki-placeholdery (href zaczynający się od `[`) chowane są automatycznie przez JS.
 
 Jak odsłonić:
-- **Podgląd wszystkiego:** dopisz `?wip=1` do adresu (np. `…/buduj-z-ai/?wip=1`) **lub** ustaw
+- **Podgląd wszystkiego:** dopisz `?wip=1` do adresu (np. `…/eboo-world-/?wip=1`) **lub** ustaw
   `POKAZ_WIP: true` w `js/config.js`.
 - **Na stałe (gdy element gotowy):** uzupełnij jego treść i **usuń atrybut `data-wip`** z tego
   elementu w HTML (przy linkach social — wpisz prawdziwy adres zamiast `[LINK_…]`).
@@ -197,7 +197,7 @@ placeholdery `[ ]`). Kolejność przy zmianie CSS/JS: podnieś `?v=` + `ASSET_V`
 ## LISTA WSZYSTKICH [NAWIASÓW] DO UZUPEŁNIENIA
 
 ### Globalne
-- **Adres strony** — ustawiony tymczasowo na `https://marzenia42-png.github.io/buduj-z-ai`.
+- **Adres strony** — ustawiony tymczasowo na `https://mlg44-skr.github.io/eboo-world-`.
   Po wpięciu własnej domeny podmień w: `index.html`, `nowosci.html` (canonical, OG),
   `sitemap.xml`, `robots.txt`, `js/config.js` (`SITE_URL`).
 - `[LINK_INSTAGRAM]`, `[LINK_TIKTOK]`, `[LINK_YOUTUBE]` — linki do social (stopka wszystkich stron +

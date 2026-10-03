@@ -6,7 +6,7 @@
 
   var AUTOR = "marcel barut"; // na okładkach zawsze małymi literami
   var WIP_POKAZ = false;      // tryb podglądu niegotowych treści (?wip=1 / POKAZ_WIP)
-  var ASSET_V = "12";         // wersja assetów (cache-busting); bump przy każdym deployu
+  var ASSET_V = "13";         // wersja assetów (cache-busting); bump przy każdym deployu
 
   // Czy wartość to placeholder "[...DO UZUPEŁNIENIA]"?
   function isPH(v) { return typeof v === "string" && v.trim().charAt(0) === "["; }

@@ -1,7 +1,7 @@
 # Buduj z AI — START (stan + DO MARCELA)
 
-**Live:** https://marzenia42-png.github.io/buduj-z-ai/
-**Repo:** https://github.com/marzenia42-png/buduj-z-ai
+**Live:** https://mlg44-skr.github.io/eboo-world-/
+**Repo:** https://github.com/MLG44-skr/eboo-world-
 **Podgląd elementów roboczych:** dopisz `?wip=1` do adresu.
 
 Jak dodać nową nowość AI, ebook lub projekt oraz jak działa wersjonowanie assetów — patrz `README.md`.

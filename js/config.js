@@ -16,7 +16,7 @@ window.BUDUJ_CONFIG = {
   // Nazwa tabeli na zapisy (domyślnie "subscribers")
   SUBSCRIBERS_TABLE: "subscribers",
   // Pełny adres strony (do linków). Na razie GitHub Pages; później własna domena.
-  SITE_URL: "https://marzenia42-png.github.io/buduj-z-ai",
+  SITE_URL: "https://mlg44-skr.github.io/eboo-world-",
   // Pokaż na stronie elementy jeszcze niegotowe (z [NAWIASAMI])?
   // false = ukryte na live. true (lub ?wip=1 w adresie) = podgląd wszystkiego.
   POKAZ_WIP: false,

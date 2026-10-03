@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://marzenia42-png.github.io/buduj-z-ai/sitemap.xml
+Sitemap: https://mlg44-skr.github.io/eboo-world-/sitemap.xml
